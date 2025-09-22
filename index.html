@@ -20,7 +20,7 @@
             overflow-x: hidden;
         }
 
-        /* Fond animé */
+        /* Animated background */
         body::before {
             content: '';
             position: fixed;
@@ -77,7 +77,7 @@
             touch-action: none;
         }
 
-        .message-box {
+        .message-box, .premium-modal {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -94,21 +94,43 @@
             max-width: 400px;
             animation: fadeIn 0.3s ease-out;
         }
+
+        .premium-modal ul {
+            text-align: left;
+            margin: 20px 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .premium-modal li {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .premium-modal li svg {
+            margin-right: 10px;
+            color: #ff6b6b;
+        }
+
     </style>
 </head>
 <body class="bg-indigo-500 min-h-screen font-inter text-white">
-    <!-- En-tête -->
+    <!-- Header -->
     <header class="glassmorphism sticky top-0 z-50 p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-3xl font-black bg-gradient-to-r from-red-400 via-yellow-300 to-red-400 text-transparent bg-clip-text animate-gradient-shift">🏠 TrouvetonToit</a>
             <div class="flex items-center space-x-4">
-                <a href="javascript:void(0);" onclick="handleAuthButtonClick('Connexion')" class="bg-white/20 text-white rounded-full px-6 py-2 font-bold hover:bg-white/30 transition duration-300">Connexion</a>
-                <a href="javascript:void(0);" onclick="handleAuthButtonClick('S\'inscrire')" class="bg-gradient-to-r from-red-400 to-orange-500 text-white rounded-full px-6 py-2 font-bold hover:shadow-lg transition duration-300">S'inscrire</a>
+                <button onclick="openAuthModal('Connexion')" class="bg-white/20 text-white rounded-full px-4 py-1 text-xs font-bold hover:bg-white/30 transition duration-300">Connexion</button>
+                <button onclick="openAuthModal('S\'inscrire')" class="bg-gradient-to-r from-red-400 to-orange-500 text-white rounded-full px-4 py-1 text-xs font-bold hover:scale-105 transition-transform duration-300">S'inscrire</button>
             </div>
         </nav>
     </header>
 
-    <!-- Section Hero -->
+    <!-- Hero Section -->
     <section class="text-center py-16">
         <div class="container mx-auto px-4">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-4 animate-fadeInUp">Trouvez votre logement idéal en 3D</h1>
@@ -120,10 +142,10 @@
         </div>
     </section>
 
-    <!-- Contenu Principal -->
+    <!-- Main Content -->
     <main class="main-content rounded-t-3xl pt-8 pb-16">
         <div class="container mx-auto px-4">
-            <!-- Navigation par Onglets -->
+            <!-- Tab Navigation -->
             <div class="flex justify-center flex-wrap gap-2 mb-8">
                 <button class="tab-button active p-4 rounded-full font-semibold text-gray-600 hover:bg-gray-200" onclick="showTab('properties')">🏠 Propriétés 3D</button>
                 <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:bg-gray-200" onclick="showTab('pricing')">💎 Premium</button>
@@ -131,7 +153,7 @@
                 <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:bg-gray-200" onclick="showTab('furniture')">📏 Calculateur AR</button>
             </div>
             
-            <!-- Contenu des Onglets -->
+            <!-- Tab Contents -->
             <div id="properties" class="tab-content">
                 <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-red-500 to-orange-400 text-transparent bg-clip-text">🏠 Propriétés disponibles en 3D</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -208,14 +230,14 @@
         </div>
     </main>
 
-    <!-- Boîte de Message -->
+    <!-- Message Box -->
     <div id="message-box" class="message-box rounded-3xl">
         <h3 id="message-title" class="text-2xl font-bold mb-2 text-gray-800"></h3>
         <p id="message-content" class="text-gray-600 mb-4"></p>
         <button onclick="closeMessage()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold hover:bg-red-600 transition-colors">Fermer</button>
     </div>
 
-    <!-- Modale d'Authentification -->
+    <!-- Auth Modal -->
     <div id="auth-modal" class="hidden fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 relative shadow-2xl">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
@@ -228,7 +250,7 @@
                 <button id="signup-tab" class="auth-tab-btn w-1/2 p-2 rounded-full font-bold text-gray-600">S'inscrire</button>
             </div>
             
-            <!-- Formulaire de Connexion -->
+            <!-- Login Form -->
             <form id="login-form" class="auth-form">
                 <h3 class="text-center text-3xl font-bold mb-6 text-gray-800">Connexion</h3>
                 <input type="email" placeholder="Adresse email" class="w-full p-4 mb-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400" required>
@@ -236,7 +258,7 @@
                 <button type="submit" class="w-full bg-gradient-to-r from-red-400 to-orange-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300">Se connecter</button>
             </form>
 
-            <!-- Formulaire d'Inscription -->
+            <!-- Signup Form -->
             <form id="signup-form" class="auth-form hidden">
                 <h3 class="text-center text-3xl font-bold mb-6 text-gray-800">S'inscrire</h3>
                 <input type="text" placeholder="Nom complet" class="w-full p-4 mb-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400" required>
@@ -257,201 +279,330 @@
         </div>
     </div>
 
-    <script>
-        // Fonction pour afficher une boîte de message
-        function showMessage(title, content) {
-            document.getElementById('message-title').textContent = title;
-            document.getElementById('message-content').textContent = content;
-            document.getElementById('message-box').style.display = 'block';
-        }
-        function closeMessage() {
-            document.getElementById('message-box').style.display = 'none';
-        }
+    <!-- NEW: Premium Reminder Modal -->
+    <div id="premium-modal" class="premium-modal rounded-3xl">
+        <h3 class="text-2xl font-bold mb-2 text-gray-800">💎 Débloquez tout le potentiel !</h3>
+        <p class="text-gray-600 mb-4">Passez au plan **Premium** pour seulement **2 500 FCFA** et profitez de tous les avantages !</p>
+        <ul class="mb-4">
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Accès illimité aux visites 3D
+            </li>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Outil d'aménagement en réalité augmentée
+            </li>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Support client prioritaire
+            </li>
+        </ul>
+        <div class="bg-gray-100 p-4 rounded-xl text-sm text-gray-700">
+            <p>Paiement sécurisé via **Wave** ou **Moov Money** :</p>
+            <p class="font-bold text-lg mt-1">0151239570</p>
+        </div>
+        <button id="close-premium-button" onclick="closePremiumModal()" class="w-full bg-red-500 text-white px-6 py-2 rounded-full font-bold hover:bg-red-600 transition-colors mt-4">Ignorer</button>
+    </div>
 
-        // --- Fonctions de gestion de la modale d'authentification ---
-        const authModal = document.getElementById('auth-modal');
-        const loginTabBtn = document.getElementById('login-tab');
-        const signupTabBtn = document.getElementById('signup-tab');
-        const loginForm = document.getElementById('login-form');
-        const signupForm = document.getElementById('signup-form');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, onSnapshot, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        function openAuthModal(formType) {
-            authModal.classList.remove('hidden');
-            if (formType === 'Connexion') {
-                showForm('login');
-            } else {
-                showForm('signup');
-            }
-        }
-
-        function closeAuthModal() {
-            authModal.classList.add('hidden');
-        }
-
-        function showForm(formId) {
-            document.querySelectorAll('.auth-tab-btn').forEach(btn => btn.classList.remove('active', 'bg-gray-200'));
-            document.querySelectorAll('.auth-form').forEach(form => form.classList.add('hidden'));
-
-            if (formId === 'login') {
-                loginTabBtn.classList.add('active', 'bg-gray-200');
-                loginForm.classList.remove('hidden');
-            } else {
-                signupTabBtn.classList.add('active', 'bg-gray-200');
-                signupForm.classList.remove('hidden');
-            }
-        }
-
-        loginTabBtn.addEventListener('click', () => showForm('login'));
-        signupTabBtn.addEventListener('click', () => showForm('signup'));
-
-        // Modifie la fonction pour ouvrir la modale au lieu du message box
-        function handleAuthButtonClick(buttonType) {
-            if (buttonType === 'Connexion') {
-                openAuthModal('Connexion');
-            } else if (buttonType === 'S\'inscrire') {
-                openAuthModal('S\'inscrire');
-            }
-        }
-        
-        // Three.js pour la visite virtuelle
-        let scene, camera, renderer, controls;
-        const virtualTourTab = document.getElementById('virtual-tour');
-
-        function initThreeJS() {
-            const canvas = document.getElementById('virtualTourCanvas');
-            const width = canvas.clientWidth;
-            const height = 400;
-
-            // Scène
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x2d3748);
-
-            // Caméra
-            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            camera.position.set(2, 2, 4);
-
-            // Rendu
-            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-            renderer.setSize(width, height);
-            
-            // Contrôles de caméra (OrbitControls)
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.screenSpacePanning = false;
-            controls.minDistance = 2; // Empêche de zoomer trop près
-            controls.maxDistance = 10; // Empêche de zoomer trop loin
-
-            // Création de l'intérieur de l'appartement
-            const material = new THREE.MeshStandardMaterial({ color: 0xc8a2c8 }); // Couleur des murs
-            const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x5a4141 }); // Couleur du sol
-            const windowMaterial = new THREE.MeshStandardMaterial({ color: 0xa4c6f5, transparent: true, opacity: 0.8 }); // Matériau des fenêtres
-
-            // Sol
-            const floor = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), floorMaterial);
-            floor.rotation.x = -Math.PI / 2;
-            scene.add(floor);
-
-            // Murs
-            const wall1 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), material); // Mur du fond
-            wall1.position.set(0, 1.5, -2.5);
-            scene.add(wall1);
-
-            const wall2 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), material); // Mur du devant
-            wall2.position.set(0, 1.5, 2.5);
-            scene.add(wall2);
-            
-            const wall3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), material); // Mur gauche
-            wall3.position.set(-2.5, 1.5, 0);
-            scene.add(wall3);
-
-            const wall4 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), material); // Mur droit avec une ouverture
-            const rightWall = new THREE.Group();
-            const rightWallPart1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), material);
-            rightWallPart1.position.z = 1.75;
-            const rightWallPart2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), material);
-            rightWallPart2.position.z = -1.75;
-            rightWall.add(rightWallPart1);
-            rightWall.add(rightWallPart2);
-            rightWall.position.set(2.5, 1.5, 0);
-            scene.add(rightWall);
-
-            // Création d'une fenêtre sur le mur du fond
-            const windowFrameGeometry = new THREE.BoxGeometry(2, 2, 0.2);
-            const windowFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x4a372f });
-            const windowFrame = new THREE.Mesh(windowFrameGeometry, windowFrameMaterial);
-            windowFrame.position.set(0, 1.5, -2.4);
-            scene.add(windowFrame);
-
-            const windowGlassGeometry = new THREE.BoxGeometry(1.8, 1.8, 0.1);
-            const windowGlass = new THREE.Mesh(windowGlassGeometry, windowMaterial);
-            windowGlass.position.set(0, 1.5, -2.45);
-            scene.add(windowGlass);
-
-            // Ajout de lumières
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-            
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(10, 10, 10);
-            scene.add(directionalLight);
-
-            // Gestion du redimensionnement
-            window.addEventListener('resize', onWindowResize, false);
-            onWindowResize();
-        }
-
-        function onWindowResize() {
-            if (!renderer) return;
-            const canvas = document.getElementById('virtualTourCanvas');
-            const width = canvas.clientWidth;
-            const height = 400;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
-        }
-
-        // Boucle d'animation
-        function animate() {
-            requestAnimationFrame(animate);
-            if (controls) {
-                controls.update(); // Met à jour les contrôles pour le damping
-            }
-            if (renderer) {
-                renderer.render(scene, camera);
-            }
-        }
-
-        // Fonction pour gérer le changement d'onglets
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.remove('hidden');
-            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
-
-            if (tabId === 'virtual-tour' && !renderer) {
-                initThreeJS();
-                animate();
-            }
-        }
-        
-        // Initialisation à la fin du chargement de la page
         window.onload = function() {
+            // Global Firebase variables
+            const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+            const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+            let db, auth;
+            let userId = null;
+            let isPremium = false;
+            let ignoreCount = 0;
+
+            // Function to show a generic message box
+            window.showMessage = function(title, content) {
+                document.getElementById('message-title').textContent = title;
+                document.getElementById('message-content').textContent = content;
+                document.getElementById('message-box').style.display = 'block';
+            }
+            window.closeMessage = function() {
+                document.getElementById('message-box').style.display = 'none';
+            }
+
+            // --- Functions for authentication modal management ---
+            const authModal = document.getElementById('auth-modal');
+            const loginTabBtn = document.getElementById('login-tab');
+            const signupTabBtn = document.getElementById('signup-tab');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+
+            window.openAuthModal = function(formType) {
+                authModal.classList.remove('hidden');
+                if (formType === 'Connexion') {
+                    showForm('login');
+                } else {
+                    showForm('signup');
+                }
+            }
+
+            window.closeAuthModal = function() {
+                authModal.classList.add('hidden');
+            }
+
+            function showForm(formId) {
+                document.querySelectorAll('.auth-tab-btn').forEach(btn => btn.classList.remove('active', 'bg-gray-200'));
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.add('hidden'));
+
+                if (formId === 'login') {
+                    loginTabBtn.classList.add('active', 'bg-gray-200');
+                    loginForm.classList.remove('hidden');
+                } else {
+                    signupTabBtn.classList.add('active', 'bg-gray-200');
+                    signupForm.classList.remove('hidden');
+                }
+            }
+
+            loginTabBtn.addEventListener('click', () => showForm('login'));
+            signupTabBtn.addEventListener('click', () => showForm('signup'));
+            
+            // Three.js for the virtual tour
+            let scene, camera, renderer, controls;
+            const virtualTourTab = document.getElementById('virtual-tour');
+
+            function initThreeJS() {
+                const canvas = document.getElementById('virtualTourCanvas');
+                const width = canvas.clientWidth;
+                const height = 400;
+
+                // Scene
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x2d3748);
+
+                // Camera
+                camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+                camera.position.set(2, 2, 4);
+
+                // Renderer
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+                renderer.setSize(width, height);
+                
+                // Camera controls (OrbitControls)
+                controls = new THREE.OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.screenSpacePanning = false;
+                controls.minDistance = 2; // Prevents zooming in too close
+                controls.maxDistance = 10; // Prevents zooming out too far
+
+                // Creating the apartment interior
+                const material = new THREE.MeshStandardMaterial({ color: 0xc8a2c8 }); // Wall color
+                const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x5a4141 }); // Floor color
+                const windowMaterial = new THREE.MeshStandardMaterial({ color: 0xa4c6f5, transparent: true, opacity: 0.8 }); // Window material
+
+                // Floor
+                const floor = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), floorMaterial);
+                floor.rotation.x = -Math.PI / 2;
+                scene.add(floor);
+
+                // Walls
+                const wall1 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), material); // Back wall
+                wall1.position.set(0, 1.5, -2.5);
+                scene.add(wall1);
+
+                const wall2 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), material); // Front wall
+                wall2.position.set(0, 1.5, 2.5);
+                scene.add(wall2);
+                
+                const wall3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), material); // Left wall
+                wall3.position.set(-2.5, 1.5, 0);
+                scene.add(wall3);
+
+                const wall4 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), material); // Right wall with an opening
+                const rightWall = new THREE.Group();
+                const rightWallPart1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), material);
+                rightWallPart1.position.z = 1.75;
+                const rightWallPart2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), material);
+                rightWallPart2.position.z = -1.75;
+                rightWall.add(rightWallPart1);
+                rightWall.add(rightWallPart2);
+                rightWall.position.set(2.5, 1.5, 0);
+                scene.add(rightWall);
+
+                // Creating a window on the back wall
+                const windowFrameGeometry = new THREE.BoxGeometry(2, 2, 0.2);
+                const windowFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x4a372f });
+                const windowFrame = new THREE.Mesh(windowFrameGeometry, windowFrameMaterial);
+                windowFrame.position.set(0, 1.5, -2.4);
+                scene.add(windowFrame);
+
+                const windowGlassGeometry = new THREE.BoxGeometry(1.8, 1.8, 0.1);
+                const windowGlass = new THREE.Mesh(windowGlassGeometry, windowMaterial);
+                windowGlass.position.set(0, 1.5, -2.45);
+                scene.add(windowGlass);
+
+                // Adding lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                directionalLight.position.set(10, 10, 10);
+                scene.add(directionalLight);
+
+                // Handling resizing
+                window.addEventListener('resize', onWindowResize, false);
+                onWindowResize();
+            }
+
+            function onWindowResize() {
+                if (!renderer) return;
+                const canvas = document.getElementById('virtualTourCanvas');
+                const width = canvas.clientWidth;
+                const height = 400;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                if (controls) {
+                    controls.update(); // Updates controls for damping
+                }
+                if (renderer) {
+                    renderer.render(scene, camera);
+                }
+            }
+
+            // Function to manage tab changes
+            window.showTab = function(tabId) {
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.getElementById(tabId).classList.remove('hidden');
+                document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+                if (tabId === 'virtual-tour') {
+                    if (isPremium) {
+                        // Premium user: unlimited access
+                        initThreeJS();
+                        animate();
+                    } else if (ignoreCount < 2) {
+                        // Free user with remaining visits: show premium modal
+                        showPremiumModal();
+                    } else {
+                        // Free user with no more visits: show a message
+                        showMessage('Limite de visites atteinte', 'Vous avez utilisé vos 2 visites gratuites. Passez au plan Premium pour un accès illimité !');
+                    }
+                }
+            }
+            
+            // Handle search button click
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+
+            searchButton.addEventListener('click', () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    showMessage('Aucune offre disponible', `Il n'y a pas encore d'offres pour "${query}". Réessayez plus tard !`);
+                } else {
+                    showMessage('Recherche vide', 'Veuillez entrer une ville ou un quartier pour lancer la recherche.');
+                }
+            });
+
+            // --- Premium reminder functionality ---
+            const premiumModal = document.getElementById('premium-modal');
+            let reminderInterval;
+
+            function showPremiumModal() {
+                // Only show the modal if the user is not a premium member
+                if (!isPremium && ignoreCount < 2) {
+                    premiumModal.style.display = 'block';
+                }
+            }
+
+            window.closePremiumModal = async function() {
+                if (userId) {
+                    const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile/data`);
+                    await setDoc(userDocRef, { ignoreCount: ignoreCount + 1 }, { merge: true });
+                }
+                premiumModal.style.display = 'none';
+            }
+
+            const closePremiumButton = document.getElementById('close-premium-button');
+            closePremiumButton.addEventListener('click', closePremiumModal);
+            
+            function startPremiumReminder() {
+                clearInterval(reminderInterval);
+                if (!isPremium && ignoreCount < 2) {
+                    reminderInterval = setInterval(showPremiumModal, 60000); // Show every 60 seconds (1 minute)
+                }
+            }
+
+            // --- Firebase Initialization and Auth State Management ---
+            
+            initializeApp(firebaseConfig);
+            auth = getAuth();
+            db = getFirestore();
+            console.debug('Firebase initialized. Waiting for authentication state.');
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    console.log('User logged in:', userId);
+                    
+                    // Start listening to the user's data in Firestore
+                    const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile/data`);
+                    onSnapshot(userDocRef, (docSnap) => {
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            isPremium = data.isPremium || false;
+                            ignoreCount = data.ignoreCount || 0;
+                            console.log('User premium status:', isPremium, 'Ignore count:', ignoreCount);
+                        } else {
+                            // User document does not exist, they are not premium and have no ignore count
+                            isPremium = false;
+                            ignoreCount = 0;
+                            console.log('User has no premium profile.');
+                        }
+                        startPremiumReminder();
+                    }, (error) => {
+                        console.error('Error listening to user data:', error);
+                    });
+
+                } else {
+                    console.log('User logged out.');
+                    userId = null;
+                    isPremium = false;
+                    ignoreCount = 0;
+                    startPremiumReminder();
+                }
+            });
+
+            // Handle the sign-in with custom token
+            async function handleCustomAuth() {
+                try {
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                        console.log("Signed in with custom token.");
+                    } else {
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously.");
+                    }
+                } catch (error) {
+                    console.error("Firebase auth error:", error);
+                }
+            }
+            handleCustomAuth();
+            
             showTab('properties');
         };
-
-        // Gérer le clic sur le bouton de recherche
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (query) {
-                showMessage('Aucune offre disponible', `Il n'y a pas encore d'offres pour "${query}". Réessayez plus tard !`);
-            } else {
-                showMessage('Recherche vide', 'Veuillez entrer une ville ou un quartier pour lancer la recherche.');
-            }
-        });
     </script>
 </body>
 </html>
