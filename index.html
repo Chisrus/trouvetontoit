@@ -14,7 +14,8 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            /* New background gradient */
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
@@ -29,9 +30,9 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 118, 117, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(246, 79, 89, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(46, 204, 113, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
             animation: float 20s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
@@ -64,9 +65,10 @@
         }
 
         .tab-button.active {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            /* New tab color */
+            background: linear-gradient(45deg, #3498db, #2ecc71);
             color: white;
-            box-shadow: 0 10px 30px rgba(255,107,107,0.3);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
         }
         
         #virtualTourCanvas {
@@ -113,7 +115,8 @@
 
         .premium-modal li svg {
             margin-right: 10px;
-            color: #ff6b6b;
+            /* New icon color */
+            color: #2ecc71;
         }
 
     </style>
@@ -122,10 +125,12 @@
     <!-- Header -->
     <header class="glassmorphism sticky top-0 z-50 p-4">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-3xl font-black bg-gradient-to-r from-red-400 via-yellow-300 to-red-400 text-transparent bg-clip-text animate-gradient-shift">🏠 TrouvetonToit</a>
+            <!-- New text color and gradient for logo -->
+            <a href="#" class="text-3xl font-black bg-gradient-to-r from-blue-400 via-green-300 to-blue-400 text-transparent bg-clip-text animate-gradient-shift">🏠 TrouvetonToit</a>
             <div class="flex items-center space-x-4">
                 <button onclick="openAuthModal('Connexion')" class="bg-white/20 text-white rounded-full px-4 py-1 text-xs font-bold hover:bg-white/30 transition duration-300">Connexion</button>
-                <button onclick="openAuthModal('S\'inscrire')" class="bg-gradient-to-r from-red-400 to-orange-500 text-white rounded-full px-4 py-1 text-xs font-bold hover:scale-105 transition-transform duration-300">S'inscrire</button>
+                <!-- New button gradient -->
+                <button onclick="openAuthModal('S\'inscrire')" class="bg-gradient-to-r from-blue-400 to-green-500 text-white rounded-full px-4 py-1 text-xs font-bold hover:scale-105 transition-transform duration-300">S'inscrire</button>
             </div>
         </nav>
     </header>
@@ -137,7 +142,8 @@
             <p class="text-lg md:text-xl mb-8 opacity-80 animate-fadeInUp delay-100">Visitez virtuellement, calculez vos meubles, économisez temps et argent</p>
             <div class="glassmorphism rounded-full p-2 flex flex-col md:flex-row items-center max-w-2xl mx-auto shadow-xl animate-fadeInUp delay-200">
                 <input type="text" id="search-input" placeholder="🔍 Ville, quartier..." class="flex-grow bg-transparent text-white placeholder-gray-300 p-4 md:p-2 focus:outline-none w-full md:w-auto">
-                <button id="search-button" class="bg-gradient-to-r from-red-400 to-orange-500 text-white rounded-full px-8 py-4 md:py-2 font-bold mt-2 md:mt-0 md:ml-2 hover:scale-105 transition-transform duration-300">✨ Rechercher</button>
+                <!-- New button gradient -->
+                <button id="search-button" class="bg-gradient-to-r from-blue-400 to-green-500 text-white rounded-full px-8 py-4 md:py-2 font-bold mt-2 md:mt-0 md:ml-2 hover:scale-105 transition-transform duration-300">✨ Rechercher</button>
             </div>
         </div>
     </section>
@@ -155,7 +161,8 @@
             
             <!-- Tab Contents -->
             <div id="properties" class="tab-content">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-red-500 to-orange-400 text-transparent bg-clip-text">🏠 Propriétés disponibles en 3D</h2>
+                <!-- New heading gradient -->
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">🏠 Propriétés disponibles en 3D</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-4">
                         <div class="h-64 bg-gray-200 flex items-center justify-center text-gray-400 text-xl font-bold rounded-t-3xl">[Image d'un appartement moderne]</div>
@@ -167,7 +174,8 @@
                                 <span>🚿 1 sdb</span>
                                 <span>📏 65m²</span>
                             </div>
-                            <button class="w-full bg-gradient-to-r from-red-500 to-orange-400 text-white p-3 rounded-full font-bold hover:from-red-600 hover:to-orange-500 transition duration-300" onclick="showTab('virtual-tour')">🥽 Explorer en 3D</button>
+                            <!-- New button gradient -->
+                            <button class="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white p-3 rounded-full font-bold hover:from-blue-600 hover:to-green-500 transition duration-300" onclick="showTab('virtual-tour')">🥽 Explorer en 3D</button>
                         </div>
                     </div>
                      <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-4">
@@ -180,14 +188,16 @@
                                 <span>🚿 4 sdb</span>
                                 <span>📏 250m²</span>
                             </div>
-                            <button class="w-full bg-gradient-to-r from-red-500 to-orange-400 text-white p-3 rounded-full font-bold hover:from-red-600 hover:to-orange-500 transition duration-300" onclick="showMessage('Visite non disponible', 'La visite 3D pour cette propriété n\'est pas encore disponible.')">🥽 Explorer en 3D</button>
+                            <!-- New button gradient -->
+                            <button class="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white p-3 rounded-full font-bold hover:from-blue-600 hover:to-green-500 transition duration-300" onclick="showMessage('Visite non disponible', 'La visite 3D pour cette propriété n\'est pas encore disponible.')">🥽 Explorer en 3D</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="pricing" class="tab-content hidden">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-yellow-400 to-yellow-600 text-transparent bg-clip-text">💎 Devenez Premium</h2>
+                <!-- New heading gradient -->
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-blue-400 to-green-600 text-transparent bg-clip-text">💎 Devenez Premium</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white p-8 rounded-3xl shadow-lg text-center transition-transform transform hover:-translate-y-2">
                         <h3 class="text-3xl font-bold mb-2 text-gray-800">Gratuit</h3>
@@ -199,8 +209,9 @@
                         </ul>
                         <button class="w-full bg-gray-200 text-gray-800 p-3 rounded-full font-bold hover:bg-gray-300 transition duration-300">Commencer</button>
                     </div>
-                    <div class="bg-white p-8 rounded-3xl shadow-lg text-center relative border-4 border-transparent bg-clip-padding bg-gradient-to-r from-red-500 to-orange-500 to-pink-500 transition-transform transform hover:scale-105">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full px-4 py-2 font-bold">Recommandé ⭐</div>
+                    <div class="bg-white p-8 rounded-3xl shadow-lg text-center relative border-4 border-transparent bg-clip-padding bg-gradient-to-r from-blue-500 to-green-500 transition-transform transform hover:scale-105">
+                        <!-- New banner gradient -->
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-full px-4 py-2 font-bold">Recommandé ⭐</div>
                         <h3 class="text-3xl font-bold mb-2 text-gray-800">Premium</h3>
                         <p class="text-gray-500 mb-6">2 500 FCFA</p>
                         <ul class="text-left text-gray-600 mb-8 space-y-2">
@@ -209,19 +220,22 @@
                             <li>✨ Accès à l'outil d'aménagement</li>
                             <li>✨ Support prioritaire</li>
                         </ul>
-                        <button class="w-full bg-gradient-to-r from-red-500 to-orange-400 text-white p-3 rounded-full font-bold hover:from-red-600 hover:to-orange-500 transition duration-300">Choisir ce plan</button>
+                        <!-- New button gradient -->
+                        <button class="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white p-3 rounded-full font-bold hover:from-blue-600 hover:to-green-500 transition duration-300">Choisir ce plan</button>
                     </div>
                 </div>
             </div>
 
             <div id="virtual-tour" class="tab-content hidden">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-red-500 to-orange-400 text-transparent bg-clip-text">🥽 Lancer une Visite Virtuelle</h2>
+                <!-- New heading gradient -->
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">🥽 Lancer une Visite Virtuelle</h2>
                 <p class="text-center text-gray-600 mb-8">Utilisez la souris ou le doigt pour faire pivoter, zoomer et vous déplacer dans le modèle 3D.</p>
                 <canvas id="virtualTourCanvas"></canvas>
             </div>
 
             <div id="furniture" class="tab-content hidden">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-red-500 to-orange-400 text-transparent bg-clip-text">📏 Outil d'Aménagement (AR)</h2>
+                <!-- New heading gradient -->
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">📏 Outil d'Aménagement (AR)</h2>
                 <p class="text-center text-gray-600 mb-8">Cette fonctionnalité est en cours de développement. Elle vous permettra de vérifier si vos meubles s'adaptent à l'espace.</p>
                 <div class="bg-gray-200 h-96 rounded-3xl flex items-center justify-center text-gray-400 text-2xl">
                     [Ici s'affichera le calculateur AR]
@@ -255,7 +269,8 @@
                 <h3 class="text-center text-3xl font-bold mb-6 text-gray-800">Connexion</h3>
                 <input type="email" placeholder="Adresse email" class="w-full p-4 mb-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400" required>
                 <input type="password" placeholder="Mot de passe" class="w-full p-4 mb-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400" required>
-                <button type="submit" class="w-full bg-gradient-to-r from-red-400 to-orange-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300">Se connecter</button>
+                <!-- New button gradient -->
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-400 to-green-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300">Se connecter</button>
             </form>
 
             <!-- Signup Form -->
@@ -274,7 +289,8 @@
                 <input type="text" placeholder="Adresse (facultatif)" class="w-full p-4 mb-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400">
                 <input type="password" placeholder="Mot de passe" class="w-full p-4 mb-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400" required>
                 <input type="password" placeholder="Confirmer le mot de passe" class="w-full p-4 mb-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400" required>
-                <button type="submit" class="w-full bg-gradient-to-r from-red-400 to-orange-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300">Créer un compte</button>
+                <!-- New button gradient -->
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-400 to-green-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300">Créer un compte</button>
             </form>
         </div>
     </div>
