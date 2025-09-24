@@ -7,21 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- OrbitControls for better camera control -->
+    <!-- OrbitControls pour un meilleur contrôle de la caméra -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
-            /* New futuristic background gradient */
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #fff;
+            /* Nouveau dégradé de fond plus lumineux */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            color: #333; /* Couleur de texte plus foncée pour le contraste */
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Animated background */
+        /* Arrière-plan animé plus clair */
         body::before {
             content: '';
             position: fixed;
@@ -30,9 +30,9 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(142, 68, 173, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(142, 68, 173, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.05) 0%, transparent 50%);
             animation: float 20s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
@@ -45,18 +45,18 @@
         }
 
         .glassmorphism {
-            background: rgba(255, 255, 255, 0.05); /* Darker glass effect */
+            background: rgba(255, 255, 255, 0.5); /* Effet de verre plus lumineux */
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .main-content {
-            /* Darker main content background */
-            background: rgba(15, 12, 41, 0.95);
+            /* Arrière-plan du contenu principal plus clair */
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            color: #f0f0f0; /* Lighter text for contrast */
-            box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
+            color: #333; /* Texte plus foncé pour le contraste */
+            box-shadow: 0 -20px 60px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
         }
@@ -66,7 +66,7 @@
         }
 
         .tab-button.active {
-            /* Futuristic tab color */
+            /* Couleur d'onglet futuriste */
             background: linear-gradient(45deg, #3498db, #8e44ad);
             color: white;
             box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
@@ -78,26 +78,26 @@
             border-radius: 1.5rem;
             display: block;
             touch-action: none;
-            background: #080812; /* Dark futuristic background */
+            background: #f0f8ff; /* Arrière-plan plus clair pour la 3D */
         }
 
-        .message-box, .premium-modal {
+        .message-box, .premium-modal, #confirmation-box {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #1a1a2e; /* Dark futuristic color */
+            background: #ffffff; /* Couleur plus claire */
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
             z-index: 200;
             display: none;
             text-align: center;
-            color: #fff;
+            color: #333; /* Texte foncé pour le contraste */
             max-width: 400px;
             animation: fadeIn 0.3s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .premium-modal ul {
@@ -108,18 +108,18 @@
         }
 
         .premium-modal li {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.05);
             padding: 10px;
             border-radius: 10px;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            color: #E5E7EB; /* Light gray for better contrast */
+            color: #333;
         }
 
         .premium-modal li svg {
             margin-right: 10px;
-            /* Futuristic icon color */
+            /* Couleur d'icône futuriste */
             color: #3498db;
         }
         
@@ -136,7 +136,7 @@
 
         .card-premium-recommended {
             border: 3px solid transparent;
-            background: linear-gradient(#1a1a2e, #1a1a2e) padding-box,
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
                         linear-gradient(45deg, #3498db, #8e44ad) border-box;
             border-radius: 1.5rem;
         }
@@ -148,60 +148,60 @@
 
     </style>
 </head>
-<body class="min-h-screen font-inter text-white">
-    <!-- Header -->
+<body class="min-h-screen font-inter text-gray-800">
+    <!-- En-tête -->
     <header class="glassmorphism sticky top-0 z-50 p-4">
         <nav class="container mx-auto flex justify-between items-center">
-            <!-- New text color and gradient for logo -->
-            <a href="#" class="text-3xl font-black bg-gradient-to-r from-cyan-400 via-blue-300 to-purple-400 text-transparent bg-clip-text animate-gradient-shift">🏠 TrouvetonToit</a>
+            <!-- Nouvelle couleur et dégradé pour le logo -->
+            <a href="#" class="text-3xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text animate-gradient-shift">🏠 TrouvetonToit</a>
             <div class="flex items-center space-x-4">
-                <button onclick="openAuthModal('Connexion')" class="bg-white/20 text-white rounded-full px-4 py-1 text-xs font-bold hover:bg-white/30 transition duration-300">Connexion</button>
-                <!-- New button gradient -->
+                <button onclick="openAuthModal('Connexion')" class="bg-gray-200 text-gray-800 rounded-full px-4 py-1 text-xs font-bold hover:bg-gray-300 transition duration-300">Connexion</button>
+                <!-- Nouveau dégradé de bouton -->
                 <button onclick="openAuthModal('S\'inscrire')" class="bg-gradient-to-r from-cyan-400 to-purple-500 text-white rounded-full px-4 py-1 text-xs font-bold hover:scale-105 transition-transform duration-300 btn-neon-effect">S'inscrire</button>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Section Héros -->
     <section class="text-center py-16">
         <div class="container mx-auto px-4">
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-4 animate-fadeInUp">Trouvez votre logement idéal en 3D</h1>
-            <p class="text-lg md:text-xl mb-8 opacity-80 animate-fadeInUp delay-100">Visitez virtuellement, calculez vos meubles, économisez temps et argent</p>
+            <p class="text-lg md:text-xl mb-8 opacity-80 animate-fadeInUp delay-100 text-gray-600">Visitez virtuellement, calculez vos meubles, économisez temps et argent</p>
             <div class="glassmorphism rounded-full p-2 flex flex-col md:flex-row items-center max-w-2xl mx-auto shadow-xl animate-fadeInUp delay-200">
-                <input type="text" id="search-input" placeholder="🔍 Ville, quartier..." class="flex-grow bg-transparent text-white placeholder-gray-400 p-4 md:p-2 focus:outline-none w-full md:w-auto">
-                <!-- New button gradient -->
+                <input type="text" id="search-input" placeholder="🔍 Ville, quartier..." class="flex-grow bg-transparent text-gray-700 placeholder-gray-400 p-4 md:p-2 focus:outline-none w-full md:w-auto">
+                <!-- Nouveau dégradé de bouton -->
                 <button id="search-button" class="bg-gradient-to-r from-cyan-400 to-purple-500 text-white rounded-full px-8 py-4 md:py-2 font-bold mt-2 md:mt-0 md:ml-2 hover:scale-105 transition-transform duration-300 btn-neon-effect">✨ Rechercher</button>
             </div>
         </div>
     </section>
 
-    <!-- Main Content -->
+    <!-- Contenu Principal -->
     <main class="main-content rounded-t-3xl pt-8 pb-16">
         <div class="container mx-auto px-4">
-            <!-- Tab Navigation -->
+            <!-- Navigation par onglets -->
             <div class="flex justify-center flex-wrap gap-2 mb-8">
-                <button class="tab-button active p-4 rounded-full font-semibold text-gray-400 hover:text-white" onclick="showTab('properties')">🏠 Propriétés 3D</button>
-                <button class="tab-button p-4 rounded-full font-semibold text-gray-400 hover:text-white" onclick="showTab('pricing')">💎 Premium</button>
-                <button class="tab-button p-4 rounded-full font-semibold text-gray-400 hover:text-white" onclick="showTab('virtual-tour')">🥽 Visite 3D</button>
-                <button class="tab-button p-4 rounded-full font-semibold text-gray-400 hover:text-white" onclick="showTab('furniture')">📏 Calculateur AR</button>
+                <button class="tab-button active p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('properties')">🏠 Propriétés 3D</button>
+                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('pricing')">💎 Premium</button>
+                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('virtual-tour')">🥽 Visite 3D</button>
+                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('furniture')">📏 Calculateur AR</button>
             </div>
             
-            <!-- Tab Contents -->
+            <!-- Contenu des onglets -->
             <div id="properties" class="tab-content">
-                <!-- New heading gradient -->
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">🏠 Propriétés disponibles en 3D</h2>
+                <!-- Nouveau dégradé de titre -->
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-600 text-transparent bg-clip-text">🏠 Propriétés disponibles en 3D</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-gray-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-4">
-                        <div class="h-64 bg-gray-800 flex items-center justify-center text-gray-400 text-xl font-bold rounded-t-3xl">[Image d'un appartement futuriste]</div>
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-4">
+                        <div class="h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-xl font-bold rounded-t-3xl">[Image d'un appartement futuriste]</div>
                         <div class="p-6">
-                            <h3 class="text-2xl font-bold text-gray-100 mb-2">Appartement moderne - Cocody</h3>
-                            <p class="text-gray-400 mb-4">75 000 FCFA/mois</p>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Appartement moderne - Cocody</h3>
+                            <p class="text-gray-600 mb-4">75 000 FCFA/mois</p>
                             <div class="flex items-center space-x-4 text-gray-500 mb-4">
                                 <span>🛏️ 2 ch</span>
                                 <span>🚿 1 sdb</span>
                                 <span>📏 65m²</span>
                             </div>
-                            <!-- New button gradient -->
+                            <!-- Nouveau dégradé de bouton -->
                             <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showTab('virtual-tour')">🥽 Explorer en 3D</button>
                         </div>
                     </div>
@@ -209,99 +209,99 @@
             </div>
 
             <div id="pricing" class="tab-content hidden">
-                <!-- New heading gradient -->
+                <!-- Nouveau dégradé de titre -->
                 <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">💎 Devenez Premium</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card-premium-recommended p-8 rounded-3xl shadow-lg text-center relative transition-transform transform hover:scale-105">
-                        <!-- New banner gradient -->
+                        <!-- Nouveau dégradé de bannière -->
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full px-4 py-2 font-bold">Recommandé ⭐</div>
-                        <h3 class="text-3xl font-bold mb-2 text-gray-100">Premium</h3>
-                        <p class="text-gray-400 mb-6">2 500 FCFA</p>
-                        <ul class="text-left text-gray-100 mb-8 space-y-2">
+                        <h3 class="text-3xl font-bold mb-2 text-gray-800">Premium</h3>
+                        <p class="text-gray-600 mb-6">2 500 FCFA</p>
+                        <ul class="text-left text-gray-700 mb-8 space-y-2">
                             <li>✨ Accès illimité aux visites 3D</li>
                             <li>✨ 5 visites de maison</li>
                             <li>✨ Accès à l'outil d'aménagement</li>
                             <li>✨ Support prioritaire</li>
                         </ul>
-                        <!-- Updated button with an ID to attach a click event -->
+                        <!-- Bouton mis à jour avec un ID pour attacher un événement de clic -->
                         <button id="choose-plan-button" class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showPremiumModal(true)">Choisir ce plan</button>
                     </div>
                 </div>
             </div>
 
             <div id="virtual-tour" class="tab-content hidden">
-                <!-- New heading gradient -->
+                <!-- Nouveau dégradé de titre -->
                 <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">🥽 Lancer une Visite Virtuelle</h2>
-                <p class="text-center text-gray-400 mb-8">Utilisez la souris ou le doigt pour faire pivoter, zoomer et vous déplacer dans le modèle 3D.</p>
+                <p class="text-center text-gray-600 mb-8">Utilisez la souris ou le doigt pour faire pivoter, zoomer et vous déplacer dans le modèle 3D.</p>
                 <canvas id="virtualTourCanvas"></canvas>
             </div>
 
             <div id="furniture" class="tab-content hidden">
-                <!-- New heading gradient -->
+                <!-- Nouveau dégradé de titre -->
                 <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">📏 Outil d'Aménagement (AR)</h2>
-                <p class="text-center text-gray-400 mb-8">Cette fonctionnalité est en cours de développement. Elle vous permettra de vérifier si vos meubles s'adaptent à l'espace.</p>
-                <div class="bg-gray-800 h-96 rounded-3xl flex items-center justify-center text-gray-500 text-2xl">
+                <p class="text-center text-gray-600 mb-8">Cette fonctionnalité est en cours de développement. Elle vous permettra de vérifier si vos meubles s'adaptent à l'espace.</p>
+                <div class="bg-gray-200 h-96 rounded-3xl flex items-center justify-center text-gray-500 text-2xl">
                     [Ici s'affichera le calculateur AR]
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Message Box -->
+    <!-- Boîte de message -->
     <div id="message-box" class="message-box rounded-3xl">
-        <h3 id="message-title" class="text-2xl font-bold mb-2 text-gray-100"></h3>
-        <p id="message-content" class="text-gray-400 mb-4"></p>
+        <h3 id="message-title" class="text-2xl font-bold mb-2 text-gray-800"></h3>
+        <p id="message-content" class="text-gray-600 mb-4"></p>
         <button onclick="closeMessage()" class="bg-purple-500 text-white px-6 py-2 rounded-full font-bold hover:bg-purple-600 transition-colors">Fermer</button>
     </div>
 
-    <!-- Auth Modal -->
+    <!-- Modale d'authentification -->
     <div id="auth-modal" class="hidden fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-gray-900 rounded-3xl p-8 max-w-sm w-full mx-4 relative shadow-2xl">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 relative shadow-2xl">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-600 hover:text-gray-400 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
             <div class="flex justify-center mb-6">
-                <button id="login-tab" class="auth-tab-btn active w-1/2 p-2 rounded-full font-bold text-gray-400 bg-gray-800">Connexion</button>
-                <button id="signup-tab" class="auth-tab-btn w-1/2 p-2 rounded-full font-bold text-gray-400">S'inscrire</button>
+                <button id="login-tab" class="auth-tab-btn active w-1/2 p-2 rounded-full font-bold text-gray-800 bg-gray-200">Connexion</button>
+                <button id="signup-tab" class="auth-tab-btn w-1/2 p-2 rounded-full font-bold text-gray-600">S'inscrire</button>
             </div>
             
-            <!-- Login Form -->
+            <!-- Formulaire de connexion -->
             <form id="login-form" class="auth-form">
-                <h3 class="text-center text-3xl font-bold mb-6 text-gray-100">Connexion</h3>
-                <input type="email" placeholder="Adresse email" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
-                <input type="password" placeholder="Mot de passe" class="w-full p-4 mb-6 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
-                <!-- New button gradient -->
+                <h3 class="text-center text-3xl font-bold mb-6 text-gray-800">Connexion</h3>
+                <input type="email" placeholder="Adresse email" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <input type="password" placeholder="Mot de passe" class="w-full p-4 mb-6 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <!-- Nouveau dégradé de bouton -->
                 <button type="submit" class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300 btn-neon-effect">Se connecter</button>
             </form>
 
-            <!-- Signup Form -->
+            <!-- Formulaire d'inscription -->
             <form id="signup-form" class="auth-form hidden">
-                <h3 class="text-center text-3xl font-bold mb-6 text-gray-100">S'inscrire</h3>
-                <input type="text" placeholder="Nom complet" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
-                <select class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <h3 class="text-center text-3xl font-bold mb-6 text-gray-800">S'inscrire</h3>
+                <input type="text" placeholder="Nom complet" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <select class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
                     <option value="" disabled selected>Je suis un...</option>
                     <option value="proprietaire">Propriétaire</option>
                     <option value="locataire">Locataire</option>
                     <option value="etudiant">Étudiant en architecture/bâtiment</option>
                     <option value="autre">Autre</option>
                 </select>
-                <input type="email" placeholder="Adresse email" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
-                <input type="tel" placeholder="Numéro de téléphone (facultatif)" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
-                <input type="text" placeholder="Adresse (facultatif)" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
-                <input type="password" placeholder="Mot de passe" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
-                <input type="password" placeholder="Confirmer le mot de passe" class="w-full p-4 mb-6 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
-                <!-- New button gradient -->
+                <input type="email" placeholder="Adresse email" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <input type="tel" placeholder="Numéro de téléphone (facultatif)" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                <input type="text" placeholder="Adresse (facultatif)" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                <input type="password" placeholder="Mot de passe" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <input type="password" placeholder="Confirmer le mot de passe" class="w-full p-4 mb-6 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <!-- Nouveau dégradé de bouton -->
                 <button type="submit" class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300 btn-neon-effect">Créer un compte</button>
             </form>
         </div>
     </div>
 
-    <!-- NEW: Premium Reminder Modal -->
+    <!-- NOUVEAU : Modale de rappel Premium -->
     <div id="premium-modal" class="premium-modal rounded-3xl">
-        <h3 class="text-2xl font-bold mb-2 text-gray-100">💎 Débloquez tout le potentiel !</h3>
-        <p class="text-gray-400 mb-4">Passez au plan **Premium** pour seulement **2 500 FCFA** et profitez de tous les avantages !</p>
+        <h3 class="text-2xl font-bold mb-2 text-gray-800">💎 Débloquez tout le potentiel !</h3>
+        <p class="text-gray-600 mb-4">Passez au plan **Premium** pour seulement **2 500 FCFA** et profitez de tous les avantages !</p>
         <ul class="mb-4">
             <li>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -322,13 +322,21 @@
                 Support client prioritaire
             </li>
         </ul>
-        <div class="bg-gray-800 p-4 rounded-xl text-sm text-gray-300 mb-4">
+        <div class="bg-gray-100 p-4 rounded-xl text-sm text-gray-600 mb-4">
             <p>Paiement sécurisé via **Wave** ou **Moov Money** :</p>
             <p class="font-bold text-lg mt-1">0151239570</p>
         </div>
         <!-- Champ pour le numéro d'abonnement -->
-        <input type="tel" id="subscription-phone" placeholder="Numéro d'abonnement" class="w-full p-4 mb-4 rounded-xl border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        <input type="tel" id="subscription-phone" placeholder="Numéro de téléphone d'abonnement" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        <button id="validate-subscription-button" class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300 btn-neon-effect mb-4">Valider</button>
         <button id="close-premium-button" onclick="closePremiumModal()" class="w-full bg-purple-500 text-white px-6 py-2 rounded-full font-bold hover:bg-purple-600 transition-colors">Fermer</button>
+    </div>
+
+    <!-- NOUVEAU : Boîte de confirmation -->
+    <div id="confirmation-box" class="message-box rounded-3xl">
+        <h3 id="confirmation-title" class="text-2xl font-bold mb-2 text-gray-800">Demande en cours</h3>
+        <p id="confirmation-content" class="text-gray-600 mb-4">Veuillez patienter... Si vous êtes sûr d'avoir entré le bon numéro, l'accès premium sera activé sous peu.</p>
+        <button onclick="closeConfirmationBox()" class="bg-purple-500 text-white px-6 py-2 rounded-full font-bold hover:bg-purple-600 transition-colors">Fermer</button>
     </div>
 
     <script type="module">
@@ -337,7 +345,7 @@
         import { getFirestore, onSnapshot, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         window.onload = function() {
-            // Global Firebase variables
+            // Variables Firebase globales
             const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
             const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -346,7 +354,7 @@
             let userId = null;
             let isPremium = false;
 
-            // Function to show a generic message box
+            // Fonction pour afficher une boîte de message générique
             window.showMessage = function(title, content) {
                 document.getElementById('message-title').textContent = title;
                 document.getElementById('message-content').textContent = content;
@@ -356,7 +364,17 @@
                 document.getElementById('message-box').style.display = 'none';
             }
 
-            // --- Functions for authentication modal management ---
+            // Fonction pour afficher/masquer la boîte de confirmation
+            window.showConfirmationBox = function(title, content) {
+                document.getElementById('confirmation-title').textContent = title;
+                document.getElementById('confirmation-content').textContent = content;
+                document.getElementById('confirmation-box').style.display = 'block';
+            }
+            window.closeConfirmationBox = function() {
+                document.getElementById('confirmation-box').style.display = 'none';
+            }
+
+            // --- Fonctions de gestion de la modale d'authentification ---
             const authModal = document.getElementById('auth-modal');
             const loginTabBtn = document.getElementById('login-tab');
             const signupTabBtn = document.getElementById('signup-tab');
@@ -377,14 +395,14 @@
             }
 
             function showForm(formId) {
-                document.querySelectorAll('.auth-tab-btn').forEach(btn => btn.classList.remove('active', 'bg-gray-800'));
+                document.querySelectorAll('.auth-tab-btn').forEach(btn => btn.classList.remove('active', 'bg-gray-200'));
                 document.querySelectorAll('.auth-form').forEach(form => form.classList.add('hidden'));
 
                 if (formId === 'login') {
-                    loginTabBtn.classList.add('active', 'bg-gray-800');
+                    loginTabBtn.classList.add('active', 'bg-gray-200');
                     loginForm.classList.remove('hidden');
                 } else {
-                    signupTabBtn.classList.add('active', 'bg-gray-800');
+                    signupTabBtn.classList.add('active', 'bg-gray-200');
                     signupForm.classList.remove('hidden');
                 }
             }
@@ -392,7 +410,7 @@
             loginTabBtn.addEventListener('click', () => showForm('login'));
             signupTabBtn.addEventListener('click', () => showForm('signup'));
             
-            // Three.js for the virtual tour
+            // Three.js pour la visite virtuelle
             let scene, camera, renderer, controls;
             const virtualTourTab = document.getElementById('virtual-tour');
 
@@ -401,58 +419,58 @@
                 const width = canvas.clientWidth;
                 const height = 400;
 
-                // Scene
+                // Scène
                 scene = new THREE.Scene();
-                scene.background = new THREE.Color(0x080812); // Dark background
+                scene.background = new THREE.Color(0xf0f8ff); // Arrière-plan clair
 
-                // Camera
+                // Caméra
                 camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
                 camera.position.set(2, 2, 4);
 
-                // Renderer
+                // Rendu
                 renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
                 renderer.setSize(width, height);
                 
-                // Camera controls (OrbitControls)
+                // Contrôles de la caméra (OrbitControls)
                 controls = new THREE.OrbitControls(camera, renderer.domElement);
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.05;
                 controls.screenSpacePanning = false;
-                controls.minDistance = 2; // Prevents zooming in too close
-                controls.maxDistance = 10; // Prevents zooming out too far
+                controls.minDistance = 2; // Empêche de trop zoomer
+                controls.maxDistance = 10; // Empêche de trop dézoomer
 
-                // Creating the apartment interior
-                const wallMaterial = new THREE.MeshStandardMaterial({ color: 0x334455, metalness: 0.1, roughness: 0.8 });
-                const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x111118, metalness: 0.2, roughness: 0.5 });
+                // Création de l'intérieur de l'appartement
+                const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xcfe2f3, metalness: 0.1, roughness: 0.8 });
+                const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xe6f3ff, metalness: 0.2, roughness: 0.5 });
                 const windowMaterial = new THREE.MeshStandardMaterial({ color: 0x55b7ff, transparent: true, opacity: 0.1, metalness: 0.5 });
                 const lightMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
                 const floorGridMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3 });
 
-                // Floor
+                // Sol
                 const floor = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), floorMaterial);
                 floor.rotation.x = -Math.PI / 2;
                 scene.add(floor);
                 
-                // Add a futuristic grid to the floor
+                // Ajout d'une grille futuriste au sol
                 const gridHelper = new THREE.GridHelper(5, 10, 0x00ffff, 0x00ffff);
                 gridHelper.material.opacity = 0.2;
                 gridHelper.material.transparent = true;
                 scene.add(gridHelper);
 
-                // Walls
-                const wall1 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Back wall
+                // Murs
+                const wall1 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Mur du fond
                 wall1.position.set(0, 1.5, -2.5);
                 scene.add(wall1);
 
-                const wall2 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Front wall
+                const wall2 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Mur avant
                 wall2.position.set(0, 1.5, 2.5);
                 scene.add(wall2);
                 
-                const wall3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Left wall
+                const wall3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Mur gauche
                 wall3.position.set(-2.5, 1.5, 0);
                 scene.add(wall3);
 
-                const wall4 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Right wall with an opening
+                const wall4 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Mur droit avec une ouverture
                 const rightWall = new THREE.Group();
                 const rightWallPart1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), wallMaterial);
                 rightWallPart1.position.z = 1.75;
@@ -463,7 +481,7 @@
                 rightWall.position.set(2.5, 1.5, 0);
                 scene.add(rightWall);
 
-                // Creating a window on the back wall
+                // Création d'une fenêtre sur le mur du fond
                 const windowFrameGeometry = new THREE.BoxGeometry(2, 2, 0.2);
                 const windowFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x4a372f });
                 const windowFrame = new THREE.Mesh(windowFrameGeometry, windowFrameMaterial);
@@ -475,15 +493,15 @@
                 windowGlass.position.set(0, 1.5, -2.45);
                 scene.add(windowGlass);
 
-                // Adding lights
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                // Ajout de lumières
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
                 scene.add(ambientLight);
                 
                 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
                 directionalLight.position.set(10, 10, 10);
                 scene.add(directionalLight);
                 
-                // Add some glowing, futuristic orbs
+                // Ajout de quelques orbes futuristes lumineuses
                 const orbGeometry = new THREE.SphereGeometry(0.2, 32, 32);
                 const orbMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
                 const orbLight = new THREE.PointLight(0x00ffff, 1, 5);
@@ -494,7 +512,7 @@
                 scene.add(orb1);
                 scene.add(orbLight);
 
-                // Handling resizing
+                // Gestion du redimensionnement
                 window.addEventListener('resize', onWindowResize, false);
                 onWindowResize();
             }
@@ -509,18 +527,18 @@
                 renderer.setSize(width, height);
             }
 
-            // Animation loop
+            // Boucle d'animation
             function animate() {
                 requestAnimationFrame(animate);
                 if (controls) {
-                    controls.update(); // Updates controls for damping
+                    controls.update(); // Met à jour les contrôles pour l'amortissement
                 }
                 if (renderer) {
                     renderer.render(scene, camera);
                 }
             }
 
-            // Function to manage tab changes
+            // Fonction pour gérer les changements d'onglets
             window.showTab = function(tabId) {
                 document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
                 document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
@@ -529,17 +547,17 @@
 
                 if (tabId === 'virtual-tour') {
                     if (isPremium) {
-                        // Premium user: unlimited access
+                        // Utilisateur Premium : accès illimité
                         initThreeJS();
                         animate();
                     } else {
-                        // All other users: show premium modal
+                        // Tous les autres utilisateurs : afficher la modale Premium
                         showPremiumModal(true);
                     }
                 }
             }
             
-            // Handle search button click
+            // Gérer le clic sur le bouton de recherche
             const searchInput = document.getElementById('search-input');
             const searchButton = document.getElementById('search-button');
 
@@ -552,7 +570,7 @@
                 }
             });
 
-            // --- Premium reminder functionality ---
+            // --- Fonctionnalité de rappel Premium ---
             const premiumModal = document.getElementById('premium-modal');
             let reminderInterval;
 
@@ -565,74 +583,87 @@
             window.closePremiumModal = function() {
                 premiumModal.style.display = 'none';
             }
+            
+            const subscriptionPhoneInput = document.getElementById('subscription-phone');
+            const validateSubscriptionButton = document.getElementById('validate-subscription-button');
+
+            validateSubscriptionButton.addEventListener('click', () => {
+                const phoneNumber = subscriptionPhoneInput.value.trim();
+                if (phoneNumber) {
+                    closePremiumModal();
+                    showConfirmationBox("Demande de vérification", "Veuillez patienter... Si vous êtes sûr d'avoir entré le bon numéro, l'accès premium sera activé sous peu.");
+                } else {
+                    showMessage("Numéro de téléphone manquant", "Veuillez entrer le numéro de téléphone utilisé pour votre abonnement.");
+                }
+            });
 
             function startPremiumReminder() {
                 clearInterval(reminderInterval);
                 if (!isPremium) {
-                    reminderInterval = setInterval(() => showPremiumModal(true), 60000); // Show every 60 seconds (1 minute)
+                    reminderInterval = setInterval(() => showPremiumModal(true), 60000); // Afficher toutes les 60 secondes (1 minute)
                 }
             }
             
-            // Event listener for the "Choisir ce plan" button
+            // Écouteur d'événement pour le bouton "Choisir ce plan"
             const choosePlanButton = document.getElementById('choose-plan-button');
             if (choosePlanButton) {
                 choosePlanButton.addEventListener('click', () => {
-                    showPremiumModal(true); // Force show the modal
+                    showPremiumModal(true); // Forcer l'affichage de la modale
                 });
             }
 
             const closePremiumButton = document.getElementById('close-premium-button');
             closePremiumButton.addEventListener('click', closePremiumModal);
 
-            // --- Firebase Initialization and Auth State Management ---
+            // --- Initialisation de Firebase et gestion de l'état d'authentification ---
             
             initializeApp(firebaseConfig);
             auth = getAuth();
             db = getFirestore();
-            console.debug('Firebase initialized. Waiting for authentication state.');
+            console.debug('Firebase initialisé. En attente de l\'état d\'authentification.');
 
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     userId = user.uid;
-                    console.log('User logged in:', userId);
+                    console.log('Utilisateur connecté :', userId);
                     
-                    // Start listening to the user's data in Firestore
+                    // Commencer à écouter les données de l'utilisateur dans Firestore
                     const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile/data`);
                     onSnapshot(userDocRef, (docSnap) => {
                         if (docSnap.exists()) {
                             const data = docSnap.data();
                             isPremium = data.isPremium || false;
-                            console.log('User premium status:', isPremium);
+                            console.log('Statut premium de l\'utilisateur :', isPremium);
                         } else {
-                            // User document does not exist, they are not premium
+                            // Le document utilisateur n'existe pas, il n'est pas premium
                             isPremium = false;
-                            console.log('User has no premium profile.');
+                            console.log('L\'utilisateur n\'a pas de profil premium.');
                         }
                         startPremiumReminder();
                     }, (error) => {
-                        console.error('Error listening to user data:', error);
+                        console.error('Erreur lors de l\'écoute des données utilisateur :', error);
                     });
 
                 } else {
-                    console.log('User logged out.');
+                    console.log('Utilisateur déconnecté.');
                     userId = null;
                     isPremium = false;
                     startPremiumReminder();
                 }
             });
 
-            // Handle the sign-in with custom token
+            // Gérer la connexion avec le jeton personnalisé
             async function handleCustomAuth() {
                 try {
                     if (initialAuthToken) {
                         await signInWithCustomToken(auth, initialAuthToken);
-                        console.log("Signed in with custom token.");
+                        console.log("Connecté avec le jeton personnalisé.");
                     } else {
                         await signInAnonymously(auth);
-                        console.log("Signed in anonymously.");
+                        console.log("Connecté anonymement.");
                     }
                 } catch (error) {
-                    console.error("Firebase auth error:", error);
+                    console.error("Erreur d'authentification Firebase :", error);
                 }
             }
             handleCustomAuth();
