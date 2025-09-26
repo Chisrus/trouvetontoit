@@ -6,9 +6,8 @@
     <title>TrouvetonToit - Trouvez votre logement idéal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- OrbitControls pour un meilleur contrôle de la caméra -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
@@ -17,7 +16,7 @@
             /* Nouveau dégradé de fond plus lumineux */
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             color: #333; /* Couleur de texte plus foncée pour le contraste */
-            min-height: 100vh;
+            min-height: 10vh;
             overflow-x: hidden;
         }
 
@@ -103,8 +102,8 @@
         .premium-modal ul {
             text-align: left;
             margin: 20px 0;
-            list-style: none;
-            padding: 0;
+            list-style: disc; /* Utilisation de listes standard sans symboles */
+            padding-left: 20px;
         }
 
         .premium-modal li {
@@ -112,15 +111,12 @@
             padding: 10px;
             border-radius: 10px;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
+            display: list-item; /* Rétablit l'affichage normal des listes */
             color: #333;
         }
 
         .premium-modal li svg {
-            margin-right: 10px;
-            /* Couleur d'icône futuriste */
-            color: #3498db;
+            display: none; /* Cache les SVGs s'ils étaient utilisés */
         }
         
         @keyframes gradient-shift {
@@ -145,6 +141,13 @@
             box-shadow: 0 0 15px rgba(52, 152, 219, 0.8),
                         0 0 30px rgba(142, 68, 173, 0.6);
         }
+        
+        .apartment-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
 
     </style>
 </head>
@@ -152,8 +155,7 @@
     <!-- En-tête -->
     <header class="glassmorphism sticky top-0 z-50 p-4">
         <nav class="container mx-auto flex justify-between items-center">
-            <!-- Nouvelle couleur et dégradé pour le logo -->
-            <a href="#" class="text-3xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text animate-gradient-shift">🏠 TrouvetonToit</a>
+            <a href="#" class="text-3xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text animate-gradient-shift">TrouvetonToit</a>
             <div class="flex items-center space-x-4">
                 <button onclick="openAuthModal('Connexion')" class="bg-gray-200 text-gray-800 rounded-full px-4 py-1 text-xs font-bold hover:bg-gray-300 transition duration-300">Connexion</button>
                 <!-- Nouveau dégradé de bouton -->
@@ -165,12 +167,35 @@
     <!-- Section Héros -->
     <section class="text-center py-16">
         <div class="container mx-auto px-4">
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-4 animate-fadeInUp">Trouvez votre logement idéal en 3D</h1>
-            <p class="text-lg md:text-xl mb-8 opacity-80 animate-fadeInUp delay-100 text-gray-600">Visitez virtuellement, calculez vos meubles, économisez temps et argent</p>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-4 animate-fadeInUp">Votre futur chez-vous vous attend.</h1>
+            <p class="text-lg md:text-xl mb-8 opacity-80 animate-fadeInUp delay-100 text-gray-600">Entrez, visitez et projetez-vous comme jamais. Trouvez votre logement idéal.</p>
             <div class="glassmorphism rounded-full p-2 flex flex-col md:flex-row items-center max-w-2xl mx-auto shadow-xl animate-fadeInUp delay-200">
-                <input type="text" id="search-input" placeholder="🔍 Ville, quartier..." class="flex-grow bg-transparent text-gray-700 placeholder-gray-400 p-4 md:p-2 focus:outline-none w-full md:w-auto">
-                <!-- Nouveau dégradé de bouton -->
-                <button id="search-button" class="bg-gradient-to-r from-cyan-400 to-purple-500 text-white rounded-full px-8 py-4 md:py-2 font-bold mt-2 md:mt-0 md:ml-2 hover:scale-105 transition-transform duration-300 btn-neon-effect">✨ Rechercher</button>
+                <input type="text" id="search-input" placeholder="Ville, quartier..." class="flex-grow bg-transparent text-gray-700 placeholder-gray-400 p-4 md:p-2 focus:outline-none w-full md:w-auto">
+                <button id="search-button" class="bg-gradient-to-r from-cyan-400 to-purple-500 text-white rounded-full px-8 py-4 md:py-2 font-bold mt-2 md:mt-0 md:ml-2 hover:scale-105 transition-transform duration-300 btn-neon-effect">Rechercher</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVELLE SECTION : À propos de nous -->
+    <section class="py-16 text-center bg-white rounded-b-3xl">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold mb-4 text-gray-800">Votre logement idéal, en toute simplicité.</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                TrouvetonToit révolutionne la recherche de logement. Notre plateforme vous permet de visiter virtuellement des biens immobiliers grâce à des modèles 3D immersifs. Fini les déplacements inutiles et les surprises, projetez-vous instantanément. Notre objectif ? Vous faire gagner du temps et prendre la meilleure décision pour votre futur chez-vous.
+            </p>
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="font-bold text-xl mb-2 text-cyan-500">Visites Immersives</h3>
+                    <p class="text-gray-600">Explorez chaque recoin d'un appartement ou d'une maison comme si vous y étiez, directement depuis votre canapé.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="font-bold text-xl mb-2 text-purple-500">Projection Augmentée</h3>
+                    <p class="text-gray-600">Notre outil d'aménagement en réalité augmentée vous permet de placer vos meubles virtuellement dans l'espace. Savoir si votre canapé rentre avant de signer est l'assurance de ne pas faire d'erreur coûteuse.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="font-bold text-xl mb-2 text-blue-500">Efficacité et Économie</h3>
+                    <p class="text-gray-600">Faites votre choix rapidement et évitez les visites qui ne correspondent pas à vos attentes.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -180,68 +205,66 @@
         <div class="container mx-auto px-4">
             <!-- Navigation par onglets -->
             <div class="flex justify-center flex-wrap gap-2 mb-8">
-                <button class="tab-button active p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('properties')">🏠 Propriétés 3D</button>
-                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('pricing')">💎 Premium</button>
-                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('virtual-tour')">🥽 Visite 3D</button>
-                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('furniture')">📏 Calculateur AR</button>
+                <button class="tab-button active p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('properties')">Propriétés</button>
+                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('pricing')">Premium</button>
+                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('virtual-tour')">Visite 3D</button>
+                <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('furniture')">Calculateur AR</button>
             </div>
             
             <!-- Contenu des onglets -->
             <div id="properties" class="tab-content">
-                <!-- Nouveau dégradé de titre -->
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-600 text-transparent bg-clip-text">🏠 Propriétés disponibles en 3D</h2>
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-600 text-transparent bg-clip-text">Propriétés disponibles en 3D</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-4">
-                        <div class="h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-xl font-bold rounded-t-3xl">[Image d'un appartement futuriste]</div>
+                        <div class="w-full h-64 overflow-hidden rounded-t-3xl">
+                           <img src="https://placehold.co/600x400/314e6f/ffffff?text=Appartement+moderne" alt="Image d'un appartement moderne" class="apartment-image">
+                        </div>
                         <div class="p-6">
                             <h3 class="text-2xl font-bold text-gray-800 mb-2">Appartement moderne - Cocody</h3>
                             <p class="text-gray-600 mb-4">75 000 FCFA/mois</p>
+                            <!-- Remplacement des symboles par du texte -->
                             <div class="flex items-center space-x-4 text-gray-500 mb-4">
-                                <span>🛏️ 2 ch</span>
-                                <span>🚿 1 sdb</span>
-                                <span>📏 65m²</span>
+                                <span>Chambres : 2</span>
+                                <span>Salle de bain : 1</span>
+                                <span>Surface : 65m²</span>
                             </div>
-                            <!-- Nouveau dégradé de bouton -->
-                            <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showTab('virtual-tour')">🥽 Explorer en 3D</button>
+                            <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showTab('virtual-tour')">Explorer en 3D</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="pricing" class="tab-content hidden">
-                <!-- Nouveau dégradé de titre -->
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">💎 Devenez Premium</h2>
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">Devenez Premium</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card-premium-recommended p-8 rounded-3xl shadow-lg text-center relative transition-transform transform hover:scale-105">
-                        <!-- Nouveau dégradé de bannière -->
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full px-4 py-2 font-bold">Recommandé ⭐</div>
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full px-4 py-2 font-bold">Recommandé</div>
                         <h3 class="text-3xl font-bold mb-2 text-gray-800">Premium</h3>
-                        <p class="text-gray-600 mb-6">2 500 FCFA</p>
+                        <p class="text-gray-600 mb-6">2 500 FCFA/mois</p>
                         <ul class="text-left text-gray-700 mb-8 space-y-2">
-                            <li>✨ Accès illimité aux visites 3D</li>
-                            <li>✨ 5 visites de maison</li>
-                            <li>✨ Accès à l'outil d'aménagement</li>
-                            <li>✨ Support prioritaire</li>
+                            <!-- Ligne de confusion supprimée. Le Premium offre l'illimité. -->
+                            <li>Accès illimité aux visites 3D</li>
+                            <li>Outil d'aménagement en réalité augmentée</li>
+                            <li>Support prioritaire</li>
                         </ul>
                         <!-- Bouton mis à jour avec un ID pour attacher un événement de clic -->
                         <button id="choose-plan-button" class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showPremiumModal(true)">Choisir ce plan</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="virtual-tour" class="tab-content hidden">
-                <!-- Nouveau dégradé de titre -->
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">🥽 Lancer une Visite Virtuelle</h2>
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">Lancer une Visite Virtuelle</h2>
                 <p class="text-center text-gray-600 mb-8">Utilisez la souris ou le doigt pour faire pivoter, zoomer et vous déplacer dans le modèle 3D.</p>
                 <canvas id="virtualTourCanvas"></canvas>
             </div>
 
             <div id="furniture" class="tab-content hidden">
-                <!-- Nouveau dégradé de titre -->
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">📏 Outil d'Aménagement (AR)</h2>
+                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">Outil d'Aménagement (AR)</h2>
                 <p class="text-center text-gray-600 mb-8">Cette fonctionnalité est en cours de développement. Elle vous permettra de vérifier si vos meubles s'adaptent à l'espace.</p>
                 <div class="bg-gray-200 h-96 rounded-3xl flex items-center justify-center text-gray-500 text-2xl">
-                    [Ici s'affichera le calculateur AR]
+                    Fonctionnalité de Réalité Augmentée bientôt disponible
                 </div>
             </div>
         </div>
@@ -264,7 +287,7 @@
             </button>
             <div class="flex justify-center mb-6">
                 <button id="login-tab" class="auth-tab-btn active w-1/2 p-2 rounded-full font-bold text-gray-800 bg-gray-200">Connexion</button>
-                <button id="signup-tab" class="auth-tab-btn w-1/2 p-2 rounded-full font-bold text-gray-600">S'inscrire</button>
+                <button id="signup-tab" class="auth-1/2 p-2 rounded-full font-bold text-gray-600">S'inscrire</button>
             </div>
             
             <!-- Formulaire de connexion -->
@@ -298,32 +321,18 @@
         </div>
     </div>
 
-    <!-- NOUVEAU : Modale de rappel Premium -->
+    <!-- Modale de rappel Premium -->
     <div id="premium-modal" class="premium-modal rounded-3xl">
-        <h3 class="text-2xl font-bold mb-2 text-gray-800">💎 Débloquez tout le potentiel !</h3>
-        <p class="text-gray-600 mb-4">Passez au plan **Premium** pour seulement **2 500 FCFA** et profitez de tous les avantages !</p>
+        <h3 class="text-2xl font-bold mb-2 text-gray-800">Débloquez tout le potentiel !</h3>
+        <!-- MISE À JOUR: Texte corrigé -->
+        <p class="text-gray-600 mb-4">Passez au plan Premium pour seulement 2 500 FCFA et obtenez un accès illimité aux visites 3D ! Vous avez atteint la limite de 4 visites gratuites.</p>
         <ul class="mb-4">
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-                Accès illimité aux visites 3D
-            </li>
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-                Outil d'aménagement en réalité augmentée
-            </li>
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-                Support client prioritaire
-            </li>
+            <li>Accès illimité aux visites 3D</li>
+            <li>Outil d'aménagement en réalité augmentée</li>
+            <li>Support client prioritaire</li>
         </ul>
         <div class="bg-gray-100 p-4 rounded-xl text-sm text-gray-600 mb-4">
-            <p>Paiement sécurisé via **Wave** ou **Moov Money** :</p>
+            <p>Paiement sécurisé via Wave ou Moov Money :</p>
             <p class="font-bold text-lg mt-1">0151239570</p>
         </div>
         <!-- Champ pour le numéro d'abonnement -->
@@ -332,7 +341,7 @@
         <button id="close-premium-button" onclick="closePremiumModal()" class="w-full bg-purple-500 text-white px-6 py-2 rounded-full font-bold hover:bg-purple-600 transition-colors">Fermer</button>
     </div>
 
-    <!-- NOUVEAU : Boîte de confirmation -->
+    <!-- Boîte de confirmation -->
     <div id="confirmation-box" class="message-box rounded-3xl">
         <h3 id="confirmation-title" class="text-2xl font-bold mb-2 text-gray-800">Demande en cours</h3>
         <p id="confirmation-content" class="text-gray-600 mb-4">Veuillez patienter... Si vous êtes sûr d'avoir entré le bon numéro, l'accès premium sera activé sous peu.</p>
@@ -341,8 +350,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, onSnapshot, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         window.onload = function() {
             // Variables Firebase globales
@@ -353,6 +362,9 @@
             let db, auth;
             let userId = null;
             let isPremium = false;
+            // Variable pour compter les visites gratuites, stockée dans localStorage
+            let visitCount = parseInt(localStorage.getItem('visitCount') || '0', 10);
+            const MAX_FREE_VISITS = 4; // La nouvelle limite
 
             // Fonction pour afficher une boîte de message générique
             window.showMessage = function(title, content) {
@@ -439,13 +451,11 @@
                 controls.minDistance = 2; // Empêche de trop zoomer
                 controls.maxDistance = 10; // Empêche de trop dézoomer
 
-                // Création de l'intérieur de l'appartement
+                // Création de l'intérieur de l'appartement (Code 3D inchangé)
                 const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xcfe2f3, metalness: 0.1, roughness: 0.8 });
                 const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xe6f3ff, metalness: 0.2, roughness: 0.5 });
                 const windowMaterial = new THREE.MeshStandardMaterial({ color: 0x55b7ff, transparent: true, opacity: 0.1, metalness: 0.5 });
-                const lightMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
-                const floorGridMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3 });
-
+                
                 // Sol
                 const floor = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), floorMaterial);
                 floor.rotation.x = -Math.PI / 2;
@@ -542,17 +552,39 @@
             window.showTab = function(tabId) {
                 document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
                 document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                document.getElementById(tabId).classList.remove('hidden');
-                document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+                
+                // Si la cible n'est pas "virtual-tour", on affiche juste l'onglet
+                if (tabId !== 'virtual-tour') {
+                    document.getElementById(tabId).classList.remove('hidden');
+                    document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+                    return;
+                }
 
-                if (tabId === 'virtual-tour') {
-                    if (isPremium) {
-                        // Utilisateur Premium : accès illimité
+                // Logique spécifique pour l'onglet 'virtual-tour'
+                if (isPremium) {
+                    // Utilisateur Premium : accès illimité
+                    document.getElementById(tabId).classList.remove('hidden');
+                    document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+                    initThreeJS();
+                    animate();
+                } else {
+                    // Utilisateurs non-Premium : accès limité à 4 visites
+                    if (visitCount < MAX_FREE_VISITS) {
+                        visitCount++;
+                        localStorage.setItem('visitCount', visitCount.toString());
+                        
+                        document.getElementById(tabId).classList.remove('hidden');
+                        document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+                        showMessage('Visite virtuelle (Gratuite)', `Ceci est votre visite numéro ${visitCount} sur ${MAX_FREE_VISITS}. Il vous reste ${MAX_FREE_VISITS - visitCount} visites gratuites. Passez Premium pour un accès illimité.`);
                         initThreeJS();
                         animate();
                     } else {
-                        // Tous les autres utilisateurs : afficher la modale Premium
+                        // Limite atteinte
                         showPremiumModal(true);
+                        // Afficher un message spécifique et revenir à l'onglet propriétés
+                        showMessage('Limite de visites atteinte', `Vous avez atteint la limite de ${MAX_FREE_VISITS} visites gratuites. Veuillez passer au plan Premium pour continuer à explorer en 3D.`);
+                        showTab('properties'); // Revenir à l'onglet "Propriétés"
                     }
                 }
             }
@@ -575,6 +607,7 @@
             let reminderInterval;
 
             window.showPremiumModal = function(forceShow = false) {
+                // Affiche la modale Premium seulement si l'utilisateur n'est pas premium et que l'affichage est forcé
                 if (!isPremium && forceShow) {
                     premiumModal.style.display = 'block';
                 }
@@ -591,7 +624,8 @@
                 const phoneNumber = subscriptionPhoneInput.value.trim();
                 if (phoneNumber) {
                     closePremiumModal();
-                    showConfirmationBox("Demande de vérification", "Veuillez patienter... Si vous êtes sûr d'avoir entré le bon numéro, l'accès premium sera activé sous peu.");
+                    // On simule ici la validation du paiement et l'envoi de la demande
+                    showConfirmationBox("Demande de vérification", "Veuillez patienter... Nous vérifions votre paiement. Si vous êtes sûr d'avoir entré le bon numéro, l'accès premium sera activé sous peu.");
                 } else {
                     showMessage("Numéro de téléphone manquant", "Veuillez entrer le numéro de téléphone utilisé pour votre abonnement.");
                 }
@@ -600,7 +634,7 @@
             function startPremiumReminder() {
                 clearInterval(reminderInterval);
                 if (!isPremium) {
-                    reminderInterval = setInterval(() => showPremiumModal(true), 60000); // Afficher toutes les 60 secondes (1 minute)
+                    // La logique de rappel est désormais intégrée à showTab.
                 }
             }
             
@@ -632,6 +666,7 @@
                     onSnapshot(userDocRef, (docSnap) => {
                         if (docSnap.exists()) {
                             const data = docSnap.data();
+                            // Mise à jour de l'état premium
                             isPremium = data.isPremium || false;
                             console.log('Statut premium de l\'utilisateur :', isPremium);
                         } else {
@@ -645,7 +680,7 @@
                     });
 
                 } else {
-                    console.log('Utilisateur déconnecté.');
+                    console.log('Utilisateur déconnecté (anonyme).');
                     userId = null;
                     isPremium = false;
                     startPremiumReminder();
@@ -668,6 +703,7 @@
             }
             handleCustomAuth();
             
+            // Afficher l'onglet par défaut au chargement
             showTab('properties');
         };
     </script>
