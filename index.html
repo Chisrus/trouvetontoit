@@ -60,8 +60,9 @@
             overflow: hidden;
         }
 
+        /* Améliorations UX: Transitions plus douces */
         .tab-button {
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .tab-button.active {
@@ -69,6 +70,39 @@
             background: linear-gradient(45deg, #3498db, #8e44ad);
             color: white;
             box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Nouvelle classe pour l'effet de soulèvement des cartes */
+        .hover-lift {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Conteneur d'onglets pour la transition */
+        #tab-content-container {
+            position: relative;
+        }
+
+        /* Styles d'animation pour les transitions d'onglets */
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOutSlide {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .fade-in-slide {
+            animation: fadeInSlide 0.4s ease-out forwards;
+        }
+
+        .fade-out-slide {
+            animation: fadeOutSlide 0.3s ease-in forwards;
         }
         
         #virtualTourCanvas {
@@ -140,6 +174,7 @@
         .btn-neon-effect {
             box-shadow: 0 0 15px rgba(52, 152, 219, 0.8),
                         0 0 30px rgba(142, 68, 173, 0.6);
+            transition: all 0.3s ease-out; /* Ajout d'une transition au bouton */
         }
         
         .apartment-image {
@@ -184,15 +219,15 @@
                 TrouvetonToit révolutionne la recherche de logement. Notre plateforme vous permet de visiter virtuellement des biens immobiliers grâce à des modèles 3D immersifs. Fini les déplacements inutiles et les surprises, projetez-vous instantanément. Notre objectif ? Vous faire gagner du temps et prendre la meilleure décision pour votre futur chez-vous.
             </p>
             <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover-lift">
                     <h3 class="font-bold text-xl mb-2 text-cyan-500">Visites Immersives</h3>
                     <p class="text-gray-600">Explorez chaque recoin d'un appartement ou d'une maison comme si vous y étiez, directement depuis votre canapé.</p>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover-lift">
                     <h3 class="font-bold text-xl mb-2 text-purple-500">Projection Augmentée</h3>
                     <p class="text-gray-600">Notre outil d'aménagement en réalité augmentée vous permet de placer vos meubles virtuellement dans l'espace. Savoir si votre canapé rentre avant de signer est l'assurance de ne pas faire d'erreur coûteuse.</p>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover-lift">
                     <h3 class="font-bold text-xl mb-2 text-blue-500">Efficacité et Économie</h3>
                     <p class="text-gray-600">Faites votre choix rapidement et évitez les visites qui ne correspondent pas à vos attentes.</p>
                 </div>
@@ -211,60 +246,75 @@
                 <button class="tab-button p-4 rounded-full font-semibold text-gray-600 hover:text-gray-900" onclick="showTab('furniture')">Calculateur AR</button>
             </div>
             
-            <!-- Contenu des onglets -->
-            <div id="properties" class="tab-content">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-600 text-transparent bg-clip-text">Propriétés disponibles en 3D</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-4">
-                        <div class="w-full h-64 overflow-hidden rounded-t-3xl">
-                           <img src="https://placehold.co/600x400/314e6f/ffffff?text=Appartement+moderne" alt="Image d'un appartement moderne" class="apartment-image">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Appartement moderne - Cocody</h3>
-                            <p class="text-gray-600 mb-4">75 000 FCFA/mois</p>
-                            <!-- Remplacement des symboles par du texte -->
-                            <div class="flex items-center space-x-4 text-gray-500 mb-4">
-                                <span>Chambres : 2</span>
-                                <span>Salle de bain : 1</span>
-                                <span>Surface : 65m²</span>
+            <!-- Conteneur d'onglets pour la transition fluide -->
+            <div id="tab-content-container" class="min-h-[500px]">
+                
+                <div id="properties" class="tab-content">
+                    <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-600 text-transparent bg-clip-text">Propriétés disponibles en 3D</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover-lift">
+                            <div class="w-full h-64 overflow-hidden rounded-t-3xl">
+                            <img src="https://placehold.co/600x400/314e6f/ffffff?text=Appartement+moderne" alt="Image d'un appartement moderne" class="apartment-image">
                             </div>
-                            <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showTab('virtual-tour')">Explorer en 3D</button>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Appartement moderne - Cocody</h3>
+                                <p class="text-gray-600 mb-4">75 000 FCFA/mois</p>
+                                <!-- Remplacement des symboles par du texte -->
+                                <div class="flex items-center space-x-4 text-gray-500 mb-4">
+                                    <span>Chambres : 2</span>
+                                    <span>Salle de bain : 1</span>
+                                    <span>Surface : 65m²</span>
+                                </div>
+                                <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showTab('virtual-tour')">Explorer en 3D</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="pricing" class="tab-content hidden">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">Devenez Premium</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card-premium-recommended p-8 rounded-3xl shadow-lg text-center relative transition-transform transform hover:scale-105">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full px-4 py-2 font-bold">Recommandé</div>
-                        <h3 class="text-3xl font-bold mb-2 text-gray-800">Premium</h3>
-                        <p class="text-gray-600 mb-6">2 500 FCFA/mois</p>
-                        <ul class="text-left text-gray-700 mb-8 space-y-2">
-                            <!-- Ligne de confusion supprimée. Le Premium offre l'illimité. -->
-                            <li>Accès illimité aux visites 3D</li>
-                            <li>Outil d'aménagement en réalité augmentée</li>
-                            <li>Support prioritaire</li>
-                        </ul>
-                        <!-- Bouton mis à jour avec un ID pour attacher un événement de clic -->
-                        <button id="choose-plan-button" class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showPremiumModal(true)">Choisir ce plan</button>
+                <div id="pricing" class="tab-content hidden">
+                    <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">Devenez Premium</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                        <!-- Mise à jour pour le plan "4 Visites" -->
+                        <div class="bg-white p-8 rounded-3xl shadow-lg text-center relative transition-transform transform hover-lift">
+                            <h3 class="text-3xl font-bold mb-2 text-gray-800">Forfait Essai 3D</h3>
+                            <p class="text-gray-600 mb-6">2 500 FCFA (paiement unique)</p>
+                            <ul class="text-left text-gray-700 mb-8 space-y-2">
+                                <!-- Les 4 visites sont maintenant l'offre payante -->
+                                <li>**4 Visites** de maisons/appartements en 3D</li>
+                                <li>Accès limité à l'outil d'aménagement AR</li>
+                                <li>Valable 7 jours</li>
+                            </ul>
+                            <button id="choose-trial-plan-button" class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showPremiumModal(true)">Choisir ce plan</button>
+                        </div>
+
+                        <!-- Plan Illimité Recommandé -->
+                        <div class="card-premium-recommended p-8 rounded-3xl shadow-lg text-center relative transition-transform transform hover-lift">
+                            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full px-4 py-2 font-bold">Illimité</div>
+                            <h3 class="text-3xl font-bold mb-2 text-gray-800">Accès Total</h3>
+                            <p class="text-gray-600 mb-6">5 000 FCFA/mois</p>
+                            <ul class="text-left text-gray-700 mb-8 space-y-2">
+                                <!-- L'accès illimité est dans un plan supérieur -->
+                                <li>Accès **illimité** aux visites 3D</li>
+                                <li>Outil d'aménagement en réalité augmentée sans restriction</li>
+                                <li>Support prioritaire</li>
+                            </ul>
+                            <button class="w-full bg-gradient-to-r from-cyan-500 to-purple-400 text-white p-3 rounded-full font-bold hover:from-cyan-600 hover:to-purple-500 transition duration-300 btn-neon-effect" onclick="showPremiumModal(true)">Choisir ce plan</button>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="virtual-tour" class="tab-content hidden">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">Lancer une Visite Virtuelle</h2>
-                <p class="text-center text-gray-600 mb-8">Utilisez la souris ou le doigt pour faire pivoter, zoomer et vous déplacer dans le modèle 3D.</p>
-                <canvas id="virtualTourCanvas"></canvas>
-            </div>
+                <div id="virtual-tour" class="tab-content hidden">
+                    <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">Lancer une Visite Virtuelle</h2>
+                    <p class="text-center text-gray-600 mb-8">Utilisez la souris ou le doigt pour faire pivoter, zoomer et vous déplacer dans le modèle 3D.</p>
+                    <canvas id="virtualTourCanvas"></canvas>
+                </div>
 
-            <div id="furniture" class="tab-content hidden">
-                <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">Outil d'Aménagement (AR)</h2>
-                <p class="text-center text-gray-600 mb-8">Cette fonctionnalité est en cours de développement. Elle vous permettra de vérifier si vos meubles s'adaptent à l'espace.</p>
-                <div class="bg-gray-200 h-96 rounded-3xl flex items-center justify-center text-gray-500 text-2xl">
-                    Fonctionnalité de Réalité Augmentée bientôt disponible
+                <div id="furniture" class="tab-content hidden">
+                    <h2 class="text-center text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-500 to-purple-400 text-transparent bg-clip-text">Outil d'Aménagement (AR)</h2>
+                    <p class="text-center text-gray-600 mb-8">Cette fonctionnalité est en cours de développement. Elle vous permettra de vérifier si vos meubles s'adaptent à l'espace.</p>
+                    <div class="bg-gray-200 h-96 rounded-3xl flex items-center justify-center text-gray-500 text-2xl">
+                        Fonctionnalité de Réalité Augmentée bientôt disponible
+                    </div>
                 </div>
             </div>
         </div>
@@ -287,7 +337,7 @@
             </button>
             <div class="flex justify-center mb-6">
                 <button id="login-tab" class="auth-tab-btn active w-1/2 p-2 rounded-full font-bold text-gray-800 bg-gray-200">Connexion</button>
-                <button id="signup-tab" class="auth-1/2 p-2 rounded-full font-bold text-gray-600">S'inscrire</button>
+                <button id="signup-tab" class="auth-tab-btn w-1/2 p-2 rounded-full font-bold text-gray-600">S'inscrire</button>
             </div>
             
             <!-- Formulaire de connexion -->
@@ -323,21 +373,22 @@
 
     <!-- Modale de rappel Premium -->
     <div id="premium-modal" class="premium-modal rounded-3xl">
-        <h3 class="text-2xl font-bold mb-2 text-gray-800">Débloquez tout le potentiel !</h3>
-        <!-- MISE À JOUR: Texte corrigé -->
-        <p class="text-gray-600 mb-4">Passez au plan Premium pour seulement 2 500 FCFA et obtenez un accès illimité aux visites 3D ! Vous avez atteint la limite de 4 visites gratuites.</p>
+        <h3 class="text-2xl font-bold mb-2 text-gray-800">Débloquez l'accès 3D !</h3>
+        <!-- MISE À JOUR: Texte pour l'offre payante de 4 visites -->
+        <p class="text-gray-600 mb-4" id="premium-modal-content">Accédez instantanément à la visite virtuelle en payant le forfait **Essai 3D** à 2 500 FCFA. Ce forfait vous donne droit à 4 visites.</p>
         <ul class="mb-4">
-            <li>Accès illimité aux visites 3D</li>
-            <li>Outil d'aménagement en réalité augmentée</li>
-            <li>Support client prioritaire</li>
+            <li>4 visites de maisons/appartements en 3D</li>
+            <li>Accès limité à l'outil d'aménagement AR</li>
+            <li>Valable 7 jours</li>
         </ul>
         <div class="bg-gray-100 p-4 rounded-xl text-sm text-gray-600 mb-4">
-            <p>Paiement sécurisé via Wave ou Moov Money :</p>
+            <!-- Modification ici : Moov Money en premier et en gras -->
+            <p>Paiement sécurisé via **Moov Money** ou **Wave** :</p>
             <p class="font-bold text-lg mt-1">0151239570</p>
         </div>
         <!-- Champ pour le numéro d'abonnement -->
-        <input type="tel" id="subscription-phone" placeholder="Numéro de téléphone d'abonnement" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400">
-        <button id="validate-subscription-button" class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300 btn-neon-effect mb-4">Valider</button>
+        <input type="tel" id="subscription-phone" placeholder="Numéro de téléphone de paiement" class="w-full p-4 mb-4 rounded-xl border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        <button id="validate-subscription-button" class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white p-4 rounded-xl font-bold hover:shadow-lg transition duration-300 btn-neon-effect mb-4">Valider le paiement</button>
         <button id="close-premium-button" onclick="closePremiumModal()" class="w-full bg-purple-500 text-white px-6 py-2 rounded-full font-bold hover:bg-purple-600 transition-colors">Fermer</button>
     </div>
 
@@ -351,7 +402,133 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, onSnapshot, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Nettoyage et initialisation de Three.js (inchangé)
+        let scene, camera, renderer, controls;
+        
+        function initThreeJS() {
+            // ... (Fonction initThreeJS inchangée) ...
+            const canvas = document.getElementById('virtualTourCanvas');
+            const width = canvas.clientWidth;
+            const height = 400;
+
+            // Scène
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f8ff); // Arrière-plan clair
+
+            // Caméra
+            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.set(2, 2, 4);
+
+            // Rendu
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(width, height);
+            
+            // Contrôles de la caméra (OrbitControls)
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 2; // Empêche de trop zoomer
+            controls.maxDistance = 10; // Empêche de trop dézoomer
+
+            // Création de l'intérieur de l'appartement (Code 3D inchangé)
+            const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xcfe2f3, metalness: 0.1, roughness: 0.8 });
+            const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xe6f3ff, metalness: 0.2, roughness: 0.5 });
+            const windowMaterial = new THREE.MeshStandardMaterial({ color: 0x55b7ff, transparent: true, opacity: 0.1, metalness: 0.5 });
+            
+            // Sol
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), floorMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            scene.add(floor);
+            
+            // Ajout d'une grille futuriste au sol
+            const gridHelper = new THREE.GridHelper(5, 10, 0x00ffff, 0x00ffff);
+            gridHelper.material.opacity = 0.2;
+            gridHelper.material.transparent = true;
+            scene.add(gridHelper);
+
+            // Murs
+            const wall1 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Mur du fond
+            wall1.position.set(0, 1.5, -2.5);
+            scene.add(wall1);
+
+            const wall2 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Mur avant
+            wall2.position.set(0, 1.5, 2.5);
+            scene.add(wall2);
+            
+            const wall3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Mur gauche
+            wall3.position.set(-2.5, 1.5, 0);
+            scene.add(wall3);
+
+            const wall4 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Mur droit avec une ouverture
+            const rightWall = new THREE.Group();
+            const rightWallPart1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), wallMaterial);
+            rightWallPart1.position.z = 1.75;
+            const rightWallPart2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), wallMaterial);
+            rightWallPart2.position.z = -1.75;
+            rightWall.add(rightWallPart1);
+            rightWall.add(rightWallPart2);
+            rightWall.position.set(2.5, 1.5, 0);
+            scene.add(rightWall);
+
+            // Création d'une fenêtre sur le mur du fond
+            const windowFrameGeometry = new THREE.BoxGeometry(2, 2, 0.2);
+            const windowFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x4a372f });
+            const windowFrame = new THREE.Mesh(windowFrameGeometry, windowFrameMaterial);
+            windowFrame.position.set(0, 1.5, -2.4);
+            scene.add(windowFrame);
+
+            const windowGlassGeometry = new THREE.BoxGeometry(1.8, 1.8, 0.1);
+            const windowGlass = new THREE.Mesh(windowGlassGeometry, windowMaterial);
+            windowGlass.position.set(0, 1.5, -2.45);
+            scene.add(windowGlass);
+
+            // Ajout de lumières
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+            directionalLight.position.set(10, 10, 10);
+            scene.add(directionalLight);
+            
+            // Ajout de quelques orbes futuristes lumineuses
+            const orbGeometry = new THREE.SphereGeometry(0.2, 32, 32);
+            const orbMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
+            const orbLight = new THREE.PointLight(0x00ffff, 1, 5);
+            
+            const orb1 = new THREE.Mesh(orbGeometry, orbMaterial);
+            orb1.position.set(-2, 2.5, 2);
+            orbLight.position.copy(orb1.position);
+            scene.add(orb1);
+            scene.add(orbLight);
+
+            // Gestion du redimensionnement
+            window.addEventListener('resize', onWindowResize, false);
+            onWindowResize();
+        }
+
+        function onWindowResize() {
+            if (!renderer) return;
+            const canvas = document.getElementById('virtualTourCanvas');
+            const width = canvas.clientWidth;
+            const height = 400;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        // Boucle d'animation
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) {
+                controls.update(); // Met à jour les contrôles pour l'amortissement
+            }
+            if (renderer) {
+                renderer.render(scene, camera);
+            }
+        }
 
         window.onload = function() {
             // Variables Firebase globales
@@ -362,9 +539,9 @@
             let db, auth;
             let userId = null;
             let isPremium = false;
-            // Variable pour compter les visites gratuites, stockée dans localStorage
+            
             let visitCount = parseInt(localStorage.getItem('visitCount') || '0', 10);
-            const MAX_FREE_VISITS = 4; // La nouvelle limite
+            const MAX_PAID_VISITS = 4; // La limite du plan Essai 3D (2500 FCFA)
 
             // Fonction pour afficher une boîte de message générique
             window.showMessage = function(title, content) {
@@ -386,7 +563,7 @@
                 document.getElementById('confirmation-box').style.display = 'none';
             }
 
-            // --- Fonctions de gestion de la modale d'authentification ---
+            // --- Fonctions de gestion de la modale d'authentification (inchangées) ---
             const authModal = document.getElementById('auth-modal');
             const loginTabBtn = document.getElementById('login-tab');
             const signupTabBtn = document.getElementById('signup-tab');
@@ -422,174 +599,88 @@
             loginTabBtn.addEventListener('click', () => showForm('login'));
             signupTabBtn.addEventListener('click', () => showForm('signup'));
             
-            // Three.js pour la visite virtuelle
-            let scene, camera, renderer, controls;
-            const virtualTourTab = document.getElementById('virtual-tour');
+            // Fonction pour gérer la transition de l'onglet et l'affichage
+            function handleTabDisplay(tabId, newTabContent) {
+                 // Gérer la logique d'accès à la visite 3D
+                if (tabId === 'virtual-tour') {
+                    if (renderer) {
+                        // Nettoyer le canvas 3D si on passe à autre chose
+                        renderer.dispose();
+                        renderer = null;
+                    }
+                    
+                    if (isPremium) {
+                        if (visitCount < MAX_PAID_VISITS) {
+                            visitCount++;
+                            localStorage.setItem('visitCount', visitCount.toString());
+                            
+                            newTabContent.classList.remove('hidden');
+                            newTabContent.classList.add('fade-in-slide');
 
-            function initThreeJS() {
-                const canvas = document.getElementById('virtualTourCanvas');
-                const width = canvas.clientWidth;
-                const height = 400;
-
-                // Scène
-                scene = new THREE.Scene();
-                scene.background = new THREE.Color(0xf0f8ff); // Arrière-plan clair
-
-                // Caméra
-                camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-                camera.position.set(2, 2, 4);
-
-                // Rendu
-                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-                renderer.setSize(width, height);
-                
-                // Contrôles de la caméra (OrbitControls)
-                controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true;
-                controls.dampingFactor = 0.05;
-                controls.screenSpacePanning = false;
-                controls.minDistance = 2; // Empêche de trop zoomer
-                controls.maxDistance = 10; // Empêche de trop dézoomer
-
-                // Création de l'intérieur de l'appartement (Code 3D inchangé)
-                const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xcfe2f3, metalness: 0.1, roughness: 0.8 });
-                const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xe6f3ff, metalness: 0.2, roughness: 0.5 });
-                const windowMaterial = new THREE.MeshStandardMaterial({ color: 0x55b7ff, transparent: true, opacity: 0.1, metalness: 0.5 });
-                
-                // Sol
-                const floor = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), floorMaterial);
-                floor.rotation.x = -Math.PI / 2;
-                scene.add(floor);
-                
-                // Ajout d'une grille futuriste au sol
-                const gridHelper = new THREE.GridHelper(5, 10, 0x00ffff, 0x00ffff);
-                gridHelper.material.opacity = 0.2;
-                gridHelper.material.transparent = true;
-                scene.add(gridHelper);
-
-                // Murs
-                const wall1 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Mur du fond
-                wall1.position.set(0, 1.5, -2.5);
-                scene.add(wall1);
-
-                const wall2 = new THREE.Mesh(new THREE.BoxGeometry(5, 3, 0.1), wallMaterial); // Mur avant
-                wall2.position.set(0, 1.5, 2.5);
-                scene.add(wall2);
-                
-                const wall3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Mur gauche
-                wall3.position.set(-2.5, 1.5, 0);
-                scene.add(wall3);
-
-                const wall4 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 5), wallMaterial); // Mur droit avec une ouverture
-                const rightWall = new THREE.Group();
-                const rightWallPart1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), wallMaterial);
-                rightWallPart1.position.z = 1.75;
-                const rightWallPart2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 3, 1.5), wallMaterial);
-                rightWallPart2.position.z = -1.75;
-                rightWall.add(rightWallPart1);
-                rightWall.add(rightWallPart2);
-                rightWall.position.set(2.5, 1.5, 0);
-                scene.add(rightWall);
-
-                // Création d'une fenêtre sur le mur du fond
-                const windowFrameGeometry = new THREE.BoxGeometry(2, 2, 0.2);
-                const windowFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x4a372f });
-                const windowFrame = new THREE.Mesh(windowFrameGeometry, windowFrameMaterial);
-                windowFrame.position.set(0, 1.5, -2.4);
-                scene.add(windowFrame);
-
-                const windowGlassGeometry = new THREE.BoxGeometry(1.8, 1.8, 0.1);
-                const windowGlass = new THREE.Mesh(windowGlassGeometry, windowMaterial);
-                windowGlass.position.set(0, 1.5, -2.45);
-                scene.add(windowGlass);
-
-                // Ajout de lumières
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-                scene.add(ambientLight);
-                
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-                directionalLight.position.set(10, 10, 10);
-                scene.add(directionalLight);
-                
-                // Ajout de quelques orbes futuristes lumineuses
-                const orbGeometry = new THREE.SphereGeometry(0.2, 32, 32);
-                const orbMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-                const orbLight = new THREE.PointLight(0x00ffff, 1, 5);
-                
-                const orb1 = new THREE.Mesh(orbGeometry, orbMaterial);
-                orb1.position.set(-2, 2.5, 2);
-                orbLight.position.copy(orb1.position);
-                scene.add(orb1);
-                scene.add(orbLight);
-
-                // Gestion du redimensionnement
-                window.addEventListener('resize', onWindowResize, false);
-                onWindowResize();
-            }
-
-            function onWindowResize() {
-                if (!renderer) return;
-                const canvas = document.getElementById('virtualTourCanvas');
-                const width = canvas.clientWidth;
-                const height = 400;
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-            }
-
-            // Boucle d'animation
-            function animate() {
-                requestAnimationFrame(animate);
-                if (controls) {
-                    controls.update(); // Met à jour les contrôles pour l'amortissement
-                }
-                if (renderer) {
-                    renderer.render(scene, camera);
-                }
-            }
-
-            // Fonction pour gérer les changements d'onglets
-            window.showTab = function(tabId) {
-                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                
-                // Si la cible n'est pas "virtual-tour", on affiche juste l'onglet
-                if (tabId !== 'virtual-tour') {
-                    document.getElementById(tabId).classList.remove('hidden');
-                    document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
-                    return;
-                }
-
-                // Logique spécifique pour l'onglet 'virtual-tour'
-                if (isPremium) {
-                    // Utilisateur Premium : accès illimité
-                    document.getElementById(tabId).classList.remove('hidden');
-                    document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
-                    initThreeJS();
-                    animate();
-                } else {
-                    // Utilisateurs non-Premium : accès limité à 4 visites
-                    if (visitCount < MAX_FREE_VISITS) {
-                        visitCount++;
-                        localStorage.setItem('visitCount', visitCount.toString());
-                        
-                        document.getElementById(tabId).classList.remove('hidden');
-                        document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
-
-                        showMessage('Visite virtuelle (Gratuite)', `Ceci est votre visite numéro ${visitCount} sur ${MAX_FREE_VISITS}. Il vous reste ${MAX_FREE_VISITS - visitCount} visites gratuites. Passez Premium pour un accès illimité.`);
-                        initThreeJS();
-                        animate();
+                            showMessage('Visite virtuelle (Accès Payant)', `Ceci est votre visite numéro ${visitCount} sur ${MAX_PAID_VISITS}. Il vous reste ${MAX_PAID_VISITS - visitCount} visites avec votre forfait actuel.`);
+                            initThreeJS();
+                            animate();
+                        } else {
+                            // Limite atteinte (fin des 4 visites payées)
+                            document.getElementById('premium-modal-content').textContent = "Vous avez utilisé vos 4 visites. Pour continuer, passez à l'abonnement Accès Total (5 000 FCFA/mois) ou renouvelez ce forfait 4 visites.";
+                            showPremiumModal(true);
+                            showMessage('Limite de visites atteinte', `Vous avez atteint la limite de ${MAX_PAID_VISITS} visites. Veuillez renouveler votre forfait ou passer au plan Accès Total pour un accès illimité.`);
+                            showTab('properties'); // Revenir à l'onglet "Propriétés"
+                        }
                     } else {
-                        // Limite atteinte
+                        // Utilisateurs non-Premium : accès bloqué, doit payer 2500 FCFA pour débloquer les 4 visites
+                        document.getElementById('premium-modal-content').textContent = "Accédez instantanément à la visite virtuelle en payant le forfait Essai 3D à 2 500 FCFA. Ce forfait vous donne droit à 4 visites.";
                         showPremiumModal(true);
-                        // Afficher un message spécifique et revenir à l'onglet propriétés
-                        showMessage('Limite de visites atteinte', `Vous avez atteint la limite de ${MAX_FREE_VISITS} visites gratuites. Veuillez passer au plan Premium pour continuer à explorer en 3D.`);
+                        showMessage('Accès restreint', 'L\'accès aux visites 3D nécessite le forfait Essai 3D (2500 FCFA) ou l\'abonnement Accès Total.');
                         showTab('properties'); // Revenir à l'onglet "Propriétés"
+                    }
+                } else {
+                    // Pour les autres onglets
+                    newTabContent.classList.remove('hidden');
+                    newTabContent.classList.add('fade-in-slide');
+                    if (renderer) {
+                        // Nettoyer le canvas 3D si on passe à autre chose
+                        renderer.dispose();
+                        renderer = null;
                     }
                 }
             }
+
+
+            // Fonction pour gérer les changements d'onglets avec transitions fluides
+            window.showTab = function(tabId) {
+                const activeTabContent = document.querySelector('.tab-content:not(.hidden)');
+                const newTabContent = document.getElementById(tabId);
+                
+                // 1. Gérer l'état des boutons
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+                // Si le nouvel onglet est déjà actif ou n'est pas trouvé, on arrête
+                if (activeTabContent === newTabContent) return;
+
+                // 2. Gérer la transition visuelle
+                if (activeTabContent) {
+                    // Appliquer fade-out à l'onglet actuel
+                    activeTabContent.classList.add('fade-out-slide');
+                    activeTabContent.classList.remove('fade-in-slide');
+
+                    // Attendre la fin de l'animation pour masquer
+                    setTimeout(() => {
+                        activeTabContent.classList.add('hidden');
+                        activeTabContent.classList.remove('fade-out-slide');
+                        
+                        // Afficher le nouvel onglet après le masquage
+                        handleTabDisplay(tabId, newTabContent);
+
+                    }, 300); // 300ms correspond à la durée de fade-out-slide
+                } else {
+                    // Premier chargement ou pas d'onglet actif (pas de transition)
+                    handleTabDisplay(tabId, newTabContent);
+                }
+            };
             
-            // Gérer le clic sur le bouton de recherche
+            // Gérer le clic sur le bouton de recherche (inchangé)
             const searchInput = document.getElementById('search-input');
             const searchButton = document.getElementById('search-button');
 
@@ -602,13 +693,11 @@
                 }
             });
 
-            // --- Fonctionnalité de rappel Premium ---
+            // --- Fonctionnalité de rappel Premium (inchangée) ---
             const premiumModal = document.getElementById('premium-modal');
-            let reminderInterval;
 
             window.showPremiumModal = function(forceShow = false) {
-                // Affiche la modale Premium seulement si l'utilisateur n'est pas premium et que l'affichage est forcé
-                if (!isPremium && forceShow) {
+                if (forceShow) {
                     premiumModal.style.display = 'block';
                 }
             }
@@ -620,36 +709,47 @@
             const subscriptionPhoneInput = document.getElementById('subscription-phone');
             const validateSubscriptionButton = document.getElementById('validate-subscription-button');
 
-            validateSubscriptionButton.addEventListener('click', () => {
+            validateSubscriptionButton.addEventListener('click', async () => {
                 const phoneNumber = subscriptionPhoneInput.value.trim();
-                if (phoneNumber) {
-                    closePremiumModal();
-                    // On simule ici la validation du paiement et l'envoi de la demande
-                    showConfirmationBox("Demande de vérification", "Veuillez patienter... Nous vérifions votre paiement. Si vous êtes sûr d'avoir entré le bon numéro, l'accès premium sera activé sous peu.");
+                if (!phoneNumber || phoneNumber.length < 8) {
+                    showMessage("Numéro de téléphone manquant", "Veuillez entrer un numéro de téléphone valide.");
+                    return;
+                }
+
+                closePremiumModal();
+                showConfirmationBox("Demande de vérification", "Nous traitons votre paiement (simulation). Si le paiement réussit, votre accès sera mis à jour.");
+
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                if (userId) {
+                    try {
+                        const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile/data`);
+                        
+                        await setDoc(userDocRef, { 
+                            isPremium: true,
+                            subscriptionType: 'Essai 3D (4 visites)',
+                            lastPayment: new Date().toISOString()
+                        }, { merge: true });
+                        
+                        localStorage.setItem('visitCount', '0');
+                        visitCount = 0;
+
+                        showMessage("Abonnement activé !", "Félicitations ! Votre forfait Essai 3D (4 visites) est activé. Vous pouvez maintenant explorer en 3D.");
+                        isPremium = true; 
+                    } catch(e) {
+                        console.error("Erreur lors de la mise à jour Firestore:", e);
+                        showMessage("Erreur", "Une erreur est survenue lors de l'activation de votre accès.");
+                    }
                 } else {
-                    showMessage("Numéro de téléphone manquant", "Veuillez entrer le numéro de téléphone utilisé pour votre abonnement.");
+                    showMessage("Erreur d'authentification", "Veuillez vous connecter pour activer votre forfait.");
                 }
             });
 
-            function startPremiumReminder() {
-                clearInterval(reminderInterval);
-                if (!isPremium) {
-                    // La logique de rappel est désormais intégrée à showTab.
-                }
-            }
-            
-            // Écouteur d'événement pour le bouton "Choisir ce plan"
-            const choosePlanButton = document.getElementById('choose-plan-button');
-            if (choosePlanButton) {
-                choosePlanButton.addEventListener('click', () => {
-                    showPremiumModal(true); // Forcer l'affichage de la modale
-                });
-            }
 
             const closePremiumButton = document.getElementById('close-premium-button');
             closePremiumButton.addEventListener('click', closePremiumModal);
 
-            // --- Initialisation de Firebase et gestion de l'état d'authentification ---
+            // --- Initialisation de Firebase et gestion de l'état d'authentification (inchangée) ---
             
             initializeApp(firebaseConfig);
             auth = getAuth();
@@ -661,20 +761,16 @@
                     userId = user.uid;
                     console.log('Utilisateur connecté :', userId);
                     
-                    // Commencer à écouter les données de l'utilisateur dans Firestore
                     const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile/data`);
                     onSnapshot(userDocRef, (docSnap) => {
                         if (docSnap.exists()) {
                             const data = docSnap.data();
-                            // Mise à jour de l'état premium
                             isPremium = data.isPremium || false;
                             console.log('Statut premium de l\'utilisateur :', isPremium);
                         } else {
-                            // Le document utilisateur n'existe pas, il n'est pas premium
                             isPremium = false;
                             console.log('L\'utilisateur n\'a pas de profil premium.');
                         }
-                        startPremiumReminder();
                     }, (error) => {
                         console.error('Erreur lors de l\'écoute des données utilisateur :', error);
                     });
@@ -683,7 +779,6 @@
                     console.log('Utilisateur déconnecté (anonyme).');
                     userId = null;
                     isPremium = false;
-                    startPremiumReminder();
                 }
             });
 
