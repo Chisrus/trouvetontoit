@@ -269,6 +269,11 @@
                             </div>
                         </div>
                     </div>
+                    <!-- NOUVEAU BOUTON D'EXPORTATION -->
+                    <div class="mt-12 max-w-sm mx-auto p-4 bg-white rounded-2xl shadow-xl">
+                        <p class="text-center text-gray-700 mb-4 font-semibold">Exporter les données de la liste (Simulation)</p>
+                         <button class="w-full bg-gradient-to-r from-teal-500 to-green-500 text-white p-3 rounded-full font-bold hover:from-teal-600 hover:to-green-600 transition duration-300" onclick="exportData()">Exporter les données (JSON & CSV)</button>
+                    </div>
                 </div>
 
                 <div id="pricing" class="tab-content hidden">
@@ -382,7 +387,7 @@
             <li>Valable 7 jours</li>
         </ul>
         <div class="bg-gray-100 p-4 rounded-xl text-sm text-gray-600 mb-4">
-            <!-- Modification ici : Moov Money en premier et en gras -->
+            <!-- Mise à jour demandée : Moov Money en premier et en gras -->
             <p>Paiement sécurisé via **Moov Money** ou **Wave** :</p>
             <p class="font-bold text-lg mt-1">0151239570</p>
         </div>
@@ -408,7 +413,7 @@
         let scene, camera, renderer, controls;
         
         function initThreeJS() {
-            // ... (Fonction initThreeJS inchangée) ...
+            // Initialisation de la scène 3D
             const canvas = document.getElementById('virtualTourCanvas');
             const width = canvas.clientWidth;
             const height = 400;
@@ -433,7 +438,7 @@
             controls.minDistance = 2; // Empêche de trop zoomer
             controls.maxDistance = 10; // Empêche de trop dézoomer
 
-            // Création de l'intérieur de l'appartement (Code 3D inchangé)
+            // Création de l'intérieur de l'appartement
             const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xcfe2f3, metalness: 0.1, roughness: 0.8 });
             const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xe6f3ff, metalness: 0.2, roughness: 0.5 });
             const windowMaterial = new THREE.MeshStandardMaterial({ color: 0x55b7ff, transparent: true, opacity: 0.1, metalness: 0.5 });
@@ -542,6 +547,62 @@
             
             let visitCount = parseInt(localStorage.getItem('visitCount') || '0', 10);
             const MAX_PAID_VISITS = 4; // La limite du plan Essai 3D (2500 FCFA)
+
+            // --- NOUVELLES FONCTIONS POUR L'EXPORTATION DE DONNÉES ---
+
+            // Données simulées pour l'export (simule la base de données)
+            const listings = [
+                { id: 1, nom: "Appartement moderne - Cocody", prix: 75000, chambres: 2, surface: 65 },
+                { id: 2, nom: "Villa de Luxe - Riviera", prix: 350000, chambres: 4, surface: 200 },
+                { id: 3, nom: "Studio Économique - Abobo", prix: 30000, chambres: 1, surface: 30 }
+            ];
+
+            // Fonction pour générer le contenu CSV à partir des données
+            const generateCSV = (data) => {
+                if (data.length === 0) return "";
+                
+                // Entêtes
+                const headers = Object.keys(data[0]).join(',');
+                
+                // Lignes de données
+                const rows = data.map(obj => Object.values(obj).join(',')).join('\n');
+                
+                return headers + '\n' + rows;
+            };
+
+            const csvContent = generateCSV(listings);
+
+            // Helper Function pour déclencher un téléchargement côté client
+            function downloadFile(filename, content, mimeType) {
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                
+                // Déclenche le téléchargement
+                document.body.appendChild(a);
+                a.click();
+                
+                // Nettoyage
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // Fonction publique appelée par le bouton pour simuler fs.writeFileSync
+            window.exportData = function() {
+                // Simule fs.writeFileSync('maisons.json', JSON.stringify(listings, null, 2));
+                const jsonContent = JSON.stringify(listings, null, 2);
+                downloadFile('maisons.json', jsonContent, 'application/json');
+
+                // Simule fs.writeFileSync('maisons.csv', csv);
+                downloadFile('maisons.csv', csvContent, 'text/csv;charset=utf-8');
+
+                showMessage('Export Réussi', 'Les fichiers maisons.json et maisons.csv ont été générés et le téléchargement a été lancé par votre navigateur. (Ceci simule les lignes de code côté serveur que vous avez demandées).');
+            }
+
+            // --- FIN DES NOUVELLES FONCTIONS D'EXPORTATION ---
+
 
             // Fonction pour afficher une boîte de message générique
             window.showMessage = function(title, content) {
